@@ -1,0 +1,38 @@
+#!/bin/sh
+# .githooks/prepare-commit-msg
+# 偵測暫存的 .bytes 檔案，將差異摘要附加到 commit 訊息視窗
+# 安裝：git config core.hooksPath .githooks
+
+COMMIT_MSG_FILE="$1"
+COMMIT_SOURCE="$2"
+
+# 跳過 merge / squash
+case "$COMMIT_SOURCE" in
+  merge|squash) exit 0 ;;
+esac
+
+# 找 Python（python3 優先，fallback python）
+PYTHON=""
+for cmd in python3 python; do
+  if command -v "$cmd" > /dev/null 2>&1; then
+    PYTHON="$cmd"
+    break
+  fi
+done
+[ -z "$PYTHON" ] && exit 0
+
+# Repo 根目錄
+REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+SCRIPT="$REPO_ROOT/tools/bytes_diff_summary.py"
+[ -f "$SCRIPT" ] || exit 0
+
+# 取得暫存中有異動的 .bytes 檔案
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM 2>/dev/null | grep '\.bytes$')
+[ -z "$STAGED_FILES" ] && exit 0
+
+# 產生摘要（失敗時靜默退出，不影響 commit）
+SUMMARY=$("$PYTHON" "$SCRIPT" $STAGED_FILES 2>/dev/null)
+[ -z "$SUMMARY" ] && exit 0
+
+printf "\n%s\n" "$SUMMARY" >> "$COMMIT_MSG_FILE"
+exit 0
