@@ -1,0 +1,144 @@
+{
+  "BattleLogStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "ID",
+        "type": "int"
+      },
+      {
+        "name": "是否解碼",
+        "type": "byte"
+      },
+      {
+        "name": "字串排縮",
+        "type": "byte"
+      },
+      {
+        "name": "類型",
+        "type": "byte"
+      },
+      {
+        "name": "事件文字",
+        "type": "dstring500"
+      }
+    ]
+  },
+  "Character": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "col_5",
+        "type": "uint32"
+      },
+      {
+        "name": "col_7",
+        "type": "uint32"
+      },
+      {
+        "name": "col_8",
+        "type": "uint8"
+      },
+      {
+        "name": "col_10",
+        "type": "uint8"
+      },
+      {
+        "name": "col_12",
+        "type": "uint8"
+      },
+      {
+        "name": "col_13",
+        "type": "uint8"
+      },
+      {
+        "name": "col_15",
+        "type": "uint8"
+      },
+      {
+        "name": "col_17",
+        "type": "uint8"
+      },
+      {
+        "name": "col_18",
+        "type": "uint8"
+      },
+      {
+        "name": "col_20",
+        "type": "uint8"
+      },
+      {
+        "name": "col_37",
+        "type": "uint32"
+      },
+      {
+        "name": "col_38",
+        "type": "uint32"
+      },
+      {
+        "name": "col_39",
+        "type": "uint32"
+      },
+      {
+        "name": "col_40",
+        "type": "double"
+      },
+      {
+        "name": "col_41",
+        "type": "uint32"
+      },
+      {
+        "name": "col_42",
+        "type": "double"
+      },
+      {
+        "name": "col_43",
+        "type": "uint32"
+      },
+      {
+        "name": "col_44",
+        "type": "double"
+      },
+      {
+        "name": "col_45",
+        "type": "uint32"
+      },
+      {
+        "name": "col_46",
+        "type": "double"
+      },
+      {
+        "name": "col_57",
+        "type": "uint32"
+      },
+      {
+        "name": "col_58",
+        "type": "uint32"
+      },
+      {
+        "name": "col_59",
+        "type": "uint32"
+      },
+      {
+        "name": "col_60",
+        "type": "uint32"
+      },
+      {
+        "name": "col_61",
+        "type": "uint32"
+      },
+      {
+        "name": "col_62",
+        "type": "uint32"
+      },
+      {
+        "name": "col_63",
+        "type": "uint32"
+      },
+      {
+        "name": "col_64",
+        "type": "uint32"
+      }
+    ]
+  }
+}
