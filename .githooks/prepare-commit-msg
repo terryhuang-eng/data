@@ -1,7 +1,13 @@
 #!/bin/sh
 # .githooks/prepare-commit-msg
-# 偵測暫存的 .bytes 檔案，將差異摘要附加到 commit 訊息視窗
+# 偵測暫存的 .bytes 檔案，產生差異摘要
 # 安裝：git config core.hooksPath .githooks
+#
+# ── 切換模式 ──────────────────────────────────────────
+# MODE=B  差異寫入 commit 訊息視窗（預設）
+# MODE=A  差異寫入 .bytes_diff_preview.txt 並用記事本開啟
+MODE=B
+# ────────────────────────────────────────────────────
 
 COMMIT_MSG_FILE="$1"
 COMMIT_SOURCE="$2"
@@ -11,9 +17,9 @@ case "$COMMIT_SOURCE" in
   merge|squash) exit 0 ;;
 esac
 
-# 找 Python（python3 優先，fallback python）
+# 找 Python（python 優先，fallback python3）
 PYTHON=""
-for cmd in python3 python; do
+for cmd in python python3; do
   if command -v "$cmd" > /dev/null 2>&1; then
     PYTHON="$cmd"
     break
@@ -30,9 +36,20 @@ SCRIPT="$REPO_ROOT/tools/bytes_diff_summary.py"
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM 2>/dev/null | grep '\.bytes$')
 [ -z "$STAGED_FILES" ] && exit 0
 
-# 產生摘要（失敗時靜默退出，不影響 commit）
+# 產生摘要
 SUMMARY=$("$PYTHON" "$SCRIPT" $STAGED_FILES 2>/dev/null)
 [ -z "$SUMMARY" ] && exit 0
 
-printf "\n%s\n" "$SUMMARY" >> "$COMMIT_MSG_FILE"
+if [ "$MODE" = "A" ]; then
+  # 模式 A：寫入預覽檔並開啟記事本
+  PREVIEW_FILE="$REPO_ROOT/.bytes_diff_preview.txt"
+  printf "%s\n" "$SUMMARY" | sed 's/^# *//' > "$PREVIEW_FILE"
+  PREVIEW_WIN=$(cygpath -w "$PREVIEW_FILE" 2>/dev/null || echo "$PREVIEW_FILE")
+  powershell.exe -Command "Start-Process '$PREVIEW_WIN'" 2>/dev/null &
+else
+  # 模式 B：去掉 # 前綴後寫入 commit 訊息（Fork 可見）
+  printf "\n" >> "$COMMIT_MSG_FILE"
+  printf "%s\n" "$SUMMARY" | sed 's/^# *//' >> "$COMMIT_MSG_FILE"
+fi
+
 exit 0

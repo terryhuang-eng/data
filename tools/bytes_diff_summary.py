@@ -151,7 +151,8 @@ def diff_rows(rows_a, rows_b):
     return added, removed, changed
 
 # ── 格式化輸出 ─────────────────────────────────────────
-MAX_ROWS = 5  # 每類最多顯示幾筆
+MAX_ROWS       = 5   # 每類最多顯示幾筆
+INLINE_THRESH  = 3   # 異動欄位數 ≤ 此值時用單行，超過則多行
 
 def format_diff(rel_path, key, schema, rows_a, rows_b):
     col_names = [c['name'] for c in schema['columns']]
@@ -171,27 +172,34 @@ def format_diff(rel_path, key, schema, rows_a, rows_b):
 
     # 修改列
     for ra, rb, diff_cols in changed[:MAX_ROWS]:
-        parts = [f'{key_name}={ra[0]}']
-        for ci in diff_cols[:3]:
-            cn = col_names[ci] if ci < len(col_names) else f'col{ci}'
-            parts.append(f'{cn}: {ra[ci]} → {rb[ci]}')
-        if len(diff_cols) > 3:
-            parts.append(f'...等 {len(diff_cols)} 欄')
-        lines.append('#   ~ ' + '  '.join(parts))
+        cn_list = [(col_names[ci] if ci < len(col_names) else f'col_{ci}') for ci in diff_cols]
+        if len(diff_cols) <= INLINE_THRESH:
+            # 單行
+            parts = [f'{key_name}={ra[0]}']
+            for ci, cn in zip(diff_cols, cn_list):
+                parts.append(f'{cn}: {ra[ci]} → {rb[ci]}')
+            lines.append('#   ~ ' + '  '.join(parts))
+        else:
+            # 多行
+            lines.append(f'#   ~ {key_name}={ra[0]}（{len(diff_cols)} 欄變更）')
+            for ci, cn in zip(diff_cols[:4], cn_list[:4]):
+                lines.append(f'#       {cn}: {ra[ci]} → {rb[ci]}')
+            if len(diff_cols) > 4:
+                lines.append(f'#       …還有 {len(diff_cols) - 4} 欄')
     if len(changed) > MAX_ROWS:
-        lines.append(f'#   ~ ...還有 {len(changed) - MAX_ROWS} 筆修改')
+        lines.append(f'#   ~ …還有 {len(changed) - MAX_ROWS} 筆修改')
 
     # 新增列
     for r in added[:MAX_ROWS]:
         lines.append(f'#   + {key_name}={r[0]}')
     if len(added) > MAX_ROWS:
-        lines.append(f'#   + ...還有 {len(added) - MAX_ROWS} 筆新增')
+        lines.append(f'#   + …還有 {len(added) - MAX_ROWS} 筆新增')
 
     # 刪除列
     for r in removed[:MAX_ROWS]:
         lines.append(f'#   - {key_name}={r[0]}')
     if len(removed) > MAX_ROWS:
-        lines.append(f'#   - ...還有 {len(removed) - MAX_ROWS} 筆刪除')
+        lines.append(f'#   - …還有 {len(removed) - MAX_ROWS} 筆刪除')
 
     return lines
 
