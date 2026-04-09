@@ -64,6 +64,9 @@ def parse_bytes(raw, schema):
     str_compress_idx = next(
         (i for i, c in enumerate(columns) if c['name'] == '字串排縮'), None
     )
+    is_decoded_idx = next(
+        (i for i, c in enumerate(columns) if c['name'] == '是否解碼'), None
+    )
 
     pos = 0
 
@@ -108,20 +111,27 @@ def parse_bytes(raw, schema):
 
     for _ in range(data_count):
         if pos >= len(data): break
-        row         = []
+        row          = []
         str_compress = None
+        is_decoded   = None
         try:
             for ci, col in enumerate(columns):
                 t = TYPE_ALIAS.get(col['type'].lower(), col['type'].lower())
                 if t in TYPE_MAP:
                     val = TYPE_MAP[t]()
                 elif t.startswith('dstring') or t == 'string':
-                    use_utf8 = (str_compress == 1) if str_compress is not None else True
+                    # 是否解碼=0 → 未編碼，直接 UTF-8；否則看 字串排縮
+                    if is_decoded is not None and is_decoded == 0:
+                        use_utf8 = True
+                    else:
+                        use_utf8 = (str_compress != 0) if str_compress is not None else True
                     val = r_string(use_utf8)
                 else:
                     raise ValueError(f'未知型別：{col["type"]}')
                 if ci == str_compress_idx:
                     str_compress = int(val)
+                if ci == is_decoded_idx:
+                    is_decoded = int(val)
                 row.append(val)
             rows.append(row)
         except Exception:
@@ -131,22 +141,33 @@ def parse_bytes(raw, schema):
 
 # ── 比對 ──────────────────────────────────────────────
 def diff_rows(rows_a, rows_b):
-    map_a = {str(r[0]): r for r in rows_a}
-    map_b = {str(r[0]): r for r in rows_b}
+    from collections import defaultdict
+
+    def group(rows):
+        m = defaultdict(list)
+        for r in rows:
+            m[str(r[0])].append(r)
+        return m
+
+    map_a = group(rows_a)
+    map_b = group(rows_b)
     added, removed, changed = [], [], []
 
-    for k, rb in map_b.items():
-        if k not in map_a:
-            added.append(rb)
-        else:
-            ra = map_a[k]
-            diff_cols = [i for i in range(min(len(ra), len(rb))) if str(ra[i]) != str(rb[i])]
-            if diff_cols:
-                changed.append((ra, rb, diff_cols))
+    all_keys = list(dict.fromkeys([str(r[0]) for r in rows_b] + [str(r[0]) for r in rows_a]))
 
-    for k in map_a:
-        if k not in map_b:
-            removed.append(map_a[k])
+    for k in all_keys:
+        a_list = map_a.get(k, [])
+        b_list = map_b.get(k, [])
+        for i, rb in enumerate(b_list):
+            if i < len(a_list):
+                ra = a_list[i]
+                diff_cols = [j for j in range(min(len(ra), len(rb))) if str(ra[j]) != str(rb[j])]
+                if diff_cols:
+                    changed.append((ra, rb, diff_cols))
+            else:
+                added.append(rb)
+        for i in range(len(b_list), len(a_list)):
+            removed.append(a_list[i])
 
     return added, removed, changed
 
