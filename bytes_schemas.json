@@ -28,115 +28,115 @@
     "isXor": false,
     "columns": [
       {
-        "name": "col_5",
+        "name": "角色ID",
         "type": "uint32"
       },
       {
-        "name": "col_7",
+        "name": "美術資源ID",
         "type": "uint32"
       },
       {
-        "name": "col_8",
+        "name": "所屬\r\n國家",
         "type": "uint8"
       },
       {
-        "name": "col_10",
+        "name": "稀有度",
         "type": "uint8"
       },
       {
-        "name": "col_12",
+        "name": "性別ID",
         "type": "uint8"
       },
       {
-        "name": "col_13",
+        "name": "定位ID",
         "type": "uint8"
       },
       {
-        "name": "col_15",
+        "name": "擅長兵種ID",
         "type": "uint8"
       },
       {
-        "name": "col_17",
+        "name": "英雄\r\n射程",
         "type": "uint8"
       },
       {
-        "name": "col_18",
+        "name": "英雄屬性",
         "type": "uint8"
       },
       {
-        "name": "col_20",
+        "name": "武器類型",
         "type": "uint8"
       },
       {
-        "name": "col_37",
+        "name": "傷害最小值",
         "type": "uint32"
       },
       {
-        "name": "col_38",
+        "name": "傷害最大值",
         "type": "uint32"
       },
       {
-        "name": "col_39",
+        "name": "攻擊初始值",
         "type": "uint32"
       },
       {
-        "name": "col_40",
+        "name": "攻擊成長值",
         "type": "double"
       },
       {
-        "name": "col_41",
+        "name": "士氣初始值",
         "type": "uint32"
       },
       {
-        "name": "col_42",
+        "name": "士氣成長值",
         "type": "double"
       },
       {
-        "name": "col_43",
+        "name": "統率初始值",
         "type": "uint32"
       },
       {
-        "name": "col_44",
+        "name": "統率成長值",
         "type": "double"
       },
       {
-        "name": "col_45",
+        "name": "速度起始值",
         "type": "uint32"
       },
       {
-        "name": "col_46",
+        "name": "速度成長值",
         "type": "double"
       },
       {
-        "name": "col_57",
+        "name": "普攻ID",
         "type": "uint32"
       },
       {
-        "name": "col_58",
+        "name": "天賦樹ID",
         "type": "uint32"
       },
       {
-        "name": "col_59",
+        "name": "內政技ID",
         "type": "uint32"
       },
       {
-        "name": "col_60",
+        "name": "突破技Lv1 ID",
         "type": "uint32"
       },
       {
-        "name": "col_61",
+        "name": "突破技Lv2 ID",
         "type": "uint32"
       },
       {
-        "name": "col_62",
+        "name": "突破技Lv3 ID",
         "type": "uint32"
       },
       {
-        "name": "col_63",
+        "name": "PVE天賦樹",
         "type": "uint32"
       },
       {
-        "name": "col_64",
+        "name": "回歸AVG ID",
         "type": "uint32"
       }
     ]

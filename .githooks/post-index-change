@@ -1,0 +1,20 @@
+#!/bin/sh
+PYTHON=""
+for cmd in python python3; do
+  if command -v "$cmd" > /dev/null 2>&1; then PYTHON="$cmd"; break; fi
+done
+[ -z "$PYTHON" ] && exit 0
+
+REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+SCRIPT="$REPO_ROOT/tools/bytes_diff_summary.py"
+[ -f "$SCRIPT" ] || exit 0
+
+STAGED=$(git diff --cached --name-only --diff-filter=AM 2>/dev/null | grep '\.bytes$')
+[ -z "$STAGED" ] && exit 0
+
+PREVIEW="$REPO_ROOT/.bytes_diff_preview.txt"
+"$PYTHON" "$SCRIPT" $STAGED 2>/dev/null | sed 's/^# *//' > "$PREVIEW"
+
+PREVIEW_WIN=$(cygpath -w "$PREVIEW" 2>/dev/null || echo "$PREVIEW")
+explorer.exe "$PREVIEW_WIN" 2>/dev/null &
+exit 0
