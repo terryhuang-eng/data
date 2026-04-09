@@ -171,6 +171,14 @@ def diff_rows(rows_a, rows_b):
 
     return added, removed, changed
 
+# ── 顏色（ANSI，Windows 10+ cmd 支援）────────────────
+import os as _os
+_os.system('')          # 啟用 Windows cmd ANSI 支援
+GREEN  = '\033[92m'
+RED    = '\033[91m'
+RESET  = '\033[0m'
+STR_MAX = 60            # 字串欄位最多顯示幾個字元
+
 # ── 格式化輸出 ─────────────────────────────────────────
 MAX_ROWS       = 5   # 每類最多顯示幾筆
 INLINE_THRESH  = 3   # 異動欄位數 ≤ 此值時用單行，超過則多行
@@ -210,17 +218,24 @@ def format_diff(rel_path, key, schema, rows_a, rows_b):
     if len(changed) > MAX_ROWS:
         lines.append(f'#   ~ …還有 {len(changed) - MAX_ROWS} 筆修改')
 
-    # 新增列
+    # 新增列（綠色，列出所有欄位）
     for r in added[:MAX_ROWS]:
-        lines.append(f'#   + {key_name}={r[0]}')
+        parts = []
+        for ci, cn in enumerate(col_names):
+            if ci >= len(r): break
+            val = str(r[ci])
+            if len(val) > STR_MAX:
+                val = val[:STR_MAX] + '…'
+            parts.append(f'{cn}={val}')
+        lines.append(GREEN + '#   + ' + '  '.join(parts) + RESET)
     if len(added) > MAX_ROWS:
-        lines.append(f'#   + …還有 {len(added) - MAX_ROWS} 筆新增')
+        lines.append(GREEN + f'#   + …還有 {len(added) - MAX_ROWS} 筆新增' + RESET)
 
-    # 刪除列
+    # 刪除列（紅色，只顯示 key）
     for r in removed[:MAX_ROWS]:
-        lines.append(f'#   - {key_name}={r[0]}')
+        lines.append(RED + f'#   - {key_name}={r[0]}' + RESET)
     if len(removed) > MAX_ROWS:
-        lines.append(f'#   - …還有 {len(removed) - MAX_ROWS} 筆刪除')
+        lines.append(RED + f'#   - …還有 {len(removed) - MAX_ROWS} 筆刪除' + RESET)
 
     return lines
 
