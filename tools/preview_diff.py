@@ -18,9 +18,9 @@ result = subprocess.run(
     ['git', 'diff', '--cached', '--name-only', '--diff-filter=AM'],
     capture_output=True, text=True, cwd=git_root
 )
-# 轉為絕對路徑
+# 轉為絕對路徑（git diff 回傳的路徑已相對於 git root）
 files = [
-    os.path.join(git_root, f.strip())
+    os.path.normpath(os.path.join(git_root, f.strip()))
     for f in result.stdout.split('\n')
     if f.strip().endswith('.bytes')
 ]

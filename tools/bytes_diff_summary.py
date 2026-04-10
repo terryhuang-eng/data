@@ -186,7 +186,7 @@ _os.system('')          # 啟用 Windows cmd ANSI 支援
 GREEN  = '\033[92m'
 RED    = '\033[91m'
 RESET  = '\033[0m'
-STR_MAX = 60            # 字串欄位最多顯示幾個字元
+STR_MAX = None          # 字串欄位不截斷
 
 # ── 格式化輸出 ─────────────────────────────────────────
 MAX_ROWS       = 5   # 每類最多顯示幾筆
@@ -233,8 +233,6 @@ def format_diff(rel_path, key, schema, rows_a, rows_b):
         for ci, cn in enumerate(col_names):
             if ci >= len(r): break
             val = str(r[ci])
-            if len(val) > STR_MAX:
-                val = val[:STR_MAX] + '…'
             parts.append(f'{cn}={val}')
         lines.append(GREEN + '#   + ' + '  '.join(parts) + RESET)
     if len(added) > MAX_ROWS:
@@ -266,7 +264,6 @@ def main():
     any_output   = False
 
     for filepath in filepaths:
-        # 轉為相對路徑（正斜線）
         try:
             rel = os.path.relpath(filepath, repo_root).replace('\\', '/')
         except ValueError:
