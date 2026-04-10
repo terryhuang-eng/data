@@ -149,13 +149,19 @@ def parse_bytes(raw, schema):
     return rows
 
 # ── 比對 ──────────────────────────────────────────────
-def diff_rows(rows_a, rows_b):
+def diff_rows(rows_a, rows_b, key_cols=None):
     from collections import defaultdict
+
+    if key_cols is None:
+        key_cols = [0]
+
+    def row_key(r):
+        return '\t'.join(str(r[i]) for i in key_cols if i < len(r))
 
     def group(rows):
         m = defaultdict(list)
         for r in rows:
-            m[str(r[0])].append(r)
+            m[row_key(r)].append(r)
         return m
 
     def try_col_insert(ra, rb):
@@ -202,7 +208,7 @@ def diff_rows(rows_a, rows_b):
     map_b = group(rows_b)
     added, removed, changed = [], [], []
 
-    all_keys = list(dict.fromkeys([str(r[0]) for r in rows_b] + [str(r[0]) for r in rows_a]))
+    all_keys = list(dict.fromkeys([row_key(r) for r in rows_b] + [row_key(r) for r in rows_a]))
 
     for k in all_keys:
         a_list = map_a.get(k, [])
@@ -239,7 +245,8 @@ INLINE_THRESH  = 3   # 異動欄位數 ≤ 此值時用單行，超過則多行
 
 def format_diff(rel_path, key, schema, rows_a, rows_b):
     col_names = [c['name'] for c in schema['columns']]
-    added, removed, changed = diff_rows(rows_a, rows_b)
+    key_cols  = schema.get('keyColumns', [0])
+    added, removed, changed = diff_rows(rows_a, rows_b, key_cols)
     total = len(added) + len(removed) + len(changed)
 
     fname = os.path.basename(rel_path)
@@ -251,26 +258,32 @@ def format_diff(rel_path, key, schema, rows_a, rows_b):
 
     lines.append(f'#   修改 {len(changed)} 筆　新增 {len(added)} 筆　刪除 {len(removed)} 筆')
 
-    key_name = col_names[0] if col_names else 'key'
+    def fmt_key(row):
+        parts = []
+        for i in key_cols:
+            if i < len(col_names) and i < len(row):
+                parts.append(f'{col_names[i]}={row[i]}')
+        return '  '.join(parts)
 
     # 修改列
     for ra, rb, diff_cols, col_op in changed:
+        k_str = fmt_key(ra)
         if col_op:
             kind, k = col_op
             col_name = col_names[k] if k < len(col_names) else f'col_{k}'
             if kind == 'insert':
-                lines.append(GREEN + f'#   ~ {key_name}={ra[0]}  ＋新增欄位 {col_name}（值：{rb[k]}）' + RESET)
+                lines.append(GREEN + f'#   ~ {k_str}  ＋新增欄位 {col_name}（值：{rb[k]}）' + RESET)
             else:
-                lines.append(RED + f'#   ~ {key_name}={ra[0]}  －刪除欄位 {col_name}（舊值：{ra[k]}）' + RESET)
+                lines.append(RED + f'#   ~ {k_str}  －刪除欄位 {col_name}（舊值：{ra[k]}）' + RESET)
             continue
         cn_list = [(col_names[ci] if ci < len(col_names) else f'col_{ci}') for ci in diff_cols]
         if len(diff_cols) <= INLINE_THRESH:
-            parts = [f'{key_name}={ra[0]}']
+            parts = [k_str]
             for ci, cn in zip(diff_cols, cn_list):
                 parts.append(f'{cn}: {ra[ci]} → {rb[ci]}')
             lines.append('#   ~ ' + '  '.join(parts))
         else:
-            lines.append(f'#   ~ {key_name}={ra[0]}（{len(diff_cols)} 欄變更）')
+            lines.append(f'#   ~ {k_str}（{len(diff_cols)} 欄變更）')
             for ci, cn in zip(diff_cols[:4], cn_list[:4]):
                 lines.append(f'#       {cn}: {ra[ci]} → {rb[ci]}')
             if len(diff_cols) > 4:
@@ -286,7 +299,7 @@ def format_diff(rel_path, key, schema, rows_a, rows_b):
 
     # 刪除列（紅色，只顯示 key）
     for r in removed:
-        lines.append(RED + f'#   - {key_name}={r[0]}' + RESET)
+        lines.append(RED + f'#   - {fmt_key(r)}' + RESET)
 
     return lines
 
