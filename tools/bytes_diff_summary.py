@@ -158,6 +158,46 @@ def diff_rows(rows_a, rows_b):
             m[str(r[0])].append(r)
         return m
 
+    def try_col_insert(ra, rb):
+        """若 rb = ra 插入一欄，回傳插入位置 k；否則 None。"""
+        if len(rb) != len(ra) + 1:
+            return None
+        ra_s = [str(x) for x in ra]
+        rb_s = [str(x) for x in rb]
+        for k in range(len(rb)):
+            if ra_s[:k] == rb_s[:k] and ra_s[k:] == rb_s[k+1:]:
+                return k
+        return None
+
+    def try_col_delete(ra, rb):
+        """若 rb = ra 刪除一欄，回傳刪除位置 k；否則 None。"""
+        if len(ra) != len(rb) + 1:
+            return None
+        ra_s = [str(x) for x in ra]
+        rb_s = [str(x) for x in rb]
+        for k in range(len(ra)):
+            if ra_s[:k] == rb_s[:k] and ra_s[k+1:] == rb_s[k:]:
+                return k
+        return None
+
+    def try_col_shift(ra, rb, diff_cols):
+        """
+        同長度 row（bat 模式）：若 diff_cols 為連續尾段 [k..N-1]，
+        且 ra[k:N-1] == rb[k+1:N]（位移吻合），判定為欄位插入於 k。
+        """
+        if not diff_cols or len(ra) != len(rb):
+            return None
+        N = len(ra)
+        k = diff_cols[0]
+        if diff_cols != list(range(k, N)):
+            return None
+        ra_s = [str(x) for x in ra]
+        rb_s = [str(x) for x in rb]
+        # ra[k:N-1] 是舊檔位移後的真實值，應等於 rb[k+1:N]
+        if N > k + 1 and ra_s[k:N-1] == rb_s[k+1:N]:
+            return k
+        return None
+
     map_a = group(rows_a)
     map_b = group(rows_b)
     added, removed, changed = [], [], []
@@ -172,7 +212,12 @@ def diff_rows(rows_a, rows_b):
                 ra = a_list[i]
                 diff_cols = [j for j in range(min(len(ra), len(rb))) if str(ra[j]) != str(rb[j])]
                 if diff_cols:
-                    changed.append((ra, rb, diff_cols))
+                    ins = try_col_insert(ra, rb)
+                    dlt = try_col_delete(ra, rb)
+                    if ins is None and dlt is None:
+                        ins = try_col_shift(ra, rb, diff_cols)
+                    col_op = ('insert', ins) if ins is not None else ('delete', dlt) if dlt is not None else None
+                    changed.append((ra, rb, diff_cols, col_op))
             else:
                 added.append(rb)
         for i in range(len(b_list), len(a_list)):
@@ -209,7 +254,15 @@ def format_diff(rel_path, key, schema, rows_a, rows_b):
     key_name = col_names[0] if col_names else 'key'
 
     # 修改列
-    for ra, rb, diff_cols in changed:
+    for ra, rb, diff_cols, col_op in changed:
+        if col_op:
+            kind, k = col_op
+            col_name = col_names[k] if k < len(col_names) else f'col_{k}'
+            if kind == 'insert':
+                lines.append(GREEN + f'#   ~ {key_name}={ra[0]}  ＋新增欄位 {col_name}（值：{rb[k]}）' + RESET)
+            else:
+                lines.append(RED + f'#   ~ {key_name}={ra[0]}  －刪除欄位 {col_name}（舊值：{ra[k]}）' + RESET)
+            continue
         cn_list = [(col_names[ci] if ci < len(col_names) else f'col_{ci}') for ci in diff_cols]
         if len(diff_cols) <= INLINE_THRESH:
             parts = [f'{key_name}={ra[0]}']
