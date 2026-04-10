@@ -1,0 +1,4 @@
+uint32	uint8	uint8	uint16	uint8	uint16	uint16	uint16	uint16
+cs	cs	cs	cs	cs	cs	cs	cs	s
+a_id	season_times	lv	soldier_values	soldier_skill_lv	l_soldier_group_id	d_soldier_group_id	skill_group	bot_group
+9999	2	50	4000	10	101	102	201	301

@@ -1,0 +1,12 @@
+uint32	uint32	uint32	uint32	uint32	uint32	uint32	uint32
+cs	cs	cs	cs	cs	cs	cs	cs
+bot_group_id	legion_index	brigade_index	hero_id	soldier_id	hero_rank	hero_talent	hero_equip
+101	1	1	1509	1511	0	2539	0
+101	1	2	1209	1221	0	894	0
+101	1	3	1607	1611	0	3056	0
+102	1	1	1107	1611	0	283	0
+102	1	2	1409	1431	0	2022	0
+102	1	3	1609	1631	0	3150	0
+103	1	1	1208	1211	0	847	0
+103	1	2	1210	1521	0	941	0
+103	1	3	1107	1611	0	283	0

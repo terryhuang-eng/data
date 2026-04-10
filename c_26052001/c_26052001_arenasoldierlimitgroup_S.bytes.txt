@@ -1,0 +1,4 @@
+uint16	uint16	uint16
+cs	cs	cs
+limit_group_id	limit_group_icon	cost_upper_limit
+1	1	2
