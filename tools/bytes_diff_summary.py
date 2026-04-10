@@ -33,9 +33,18 @@ def get_repo_root():
         return os.getcwd()
 
 def find_schemas_json(repo_root):
-    """在 repo root 找 bytes_schemas.json"""
-    path = os.path.join(repo_root, 'bytes_schemas.json')
-    return path if os.path.exists(path) else None
+    """找 bytes_schemas.json：腳本同層 → 上一層 → repo root"""
+    script_dir    = os.path.dirname(os.path.abspath(__file__))
+    script_parent = os.path.dirname(script_dir)
+    candidates = [
+        os.path.join(script_dir,    'bytes_schemas.json'),
+        os.path.join(script_parent, 'bytes_schemas.json'),
+        os.path.join(repo_root,     'bytes_schemas.json'),
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+    return None
 
 def find_schema(filename, schemas):
     """用關鍵字比對（正規化 contains）找對應 schema"""
