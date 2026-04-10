@@ -209,40 +209,31 @@ def format_diff(rel_path, key, schema, rows_a, rows_b):
     key_name = col_names[0] if col_names else 'key'
 
     # 修改列
-    for ra, rb, diff_cols in changed[:MAX_ROWS]:
+    for ra, rb, diff_cols in changed:
         cn_list = [(col_names[ci] if ci < len(col_names) else f'col_{ci}') for ci in diff_cols]
         if len(diff_cols) <= INLINE_THRESH:
-            # 單行
             parts = [f'{key_name}={ra[0]}']
             for ci, cn in zip(diff_cols, cn_list):
                 parts.append(f'{cn}: {ra[ci]} → {rb[ci]}')
             lines.append('#   ~ ' + '  '.join(parts))
         else:
-            # 多行
             lines.append(f'#   ~ {key_name}={ra[0]}（{len(diff_cols)} 欄變更）')
             for ci, cn in zip(diff_cols[:4], cn_list[:4]):
                 lines.append(f'#       {cn}: {ra[ci]} → {rb[ci]}')
             if len(diff_cols) > 4:
                 lines.append(f'#       …還有 {len(diff_cols) - 4} 欄')
-    if len(changed) > MAX_ROWS:
-        lines.append(f'#   ~ …還有 {len(changed) - MAX_ROWS} 筆修改')
 
     # 新增列（綠色，列出所有欄位）
-    for r in added[:MAX_ROWS]:
+    for r in added:
         parts = []
         for ci, cn in enumerate(col_names):
             if ci >= len(r): break
-            val = str(r[ci])
-            parts.append(f'{cn}={val}')
+            parts.append(f'{cn}={str(r[ci])}')
         lines.append(GREEN + '#   + ' + '  '.join(parts) + RESET)
-    if len(added) > MAX_ROWS:
-        lines.append(GREEN + f'#   + …還有 {len(added) - MAX_ROWS} 筆新增' + RESET)
 
     # 刪除列（紅色，只顯示 key）
-    for r in removed[:MAX_ROWS]:
+    for r in removed:
         lines.append(RED + f'#   - {key_name}={r[0]}' + RESET)
-    if len(removed) > MAX_ROWS:
-        lines.append(RED + f'#   - …還有 {len(removed) - MAX_ROWS} 筆刪除' + RESET)
 
     return lines
 
