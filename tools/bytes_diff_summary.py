@@ -64,11 +64,34 @@ TYPE_ALIAS = {
     'boolean':'bool','str':'string',
 }
 
+# ── Debug 開關 ────────────────────────────────────────
+import os as _dbg_os
+DEBUG = _dbg_os.environ.get('BYTES_DEBUG', '0') == '1'
+
+def dbg(*args):
+    if DEBUG:
+        print('[DEBUG]', *args, file=sys.stderr)
+
+# ── reward 型別展開 ────────────────────────────────────
+def expand_columns(columns):
+    """將 type='reward' 的欄位展開為 3 欄：uint8 + int64 + int64"""
+    result = []
+    for col in columns:
+        if col['type'].lower() == 'reward':
+            name = col['name']
+            dbg(f'expand reward: "{name}" → {name}(uint8) / {name}1(int64) / {name}2(int64)')
+            result.append({'name': name,        'type': 'uint8'})
+            result.append({'name': name + '1',  'type': 'int64'})
+            result.append({'name': name + '2',  'type': 'int64'})
+        else:
+            result.append(col)
+    return result
+
 # ── 解析核心 ──────────────────────────────────────────
 def parse_bytes(raw, schema):
     is_xor  = schema.get('isXor', False)
     data    = bytes(b ^ raw[0] for b in raw[1:]) if is_xor else raw
-    columns = schema['columns']
+    columns = expand_columns(schema['columns'])
 
     str_compress_idx = next(
         (i for i, c in enumerate(columns) if c['name'] == '字串排縮'), None
@@ -116,9 +139,11 @@ def parse_bytes(raw, schema):
     }
 
     data_count = struct.unpack_from('<i', data, pos)[0]; pos += 4
+    dbg(f'data_count={data_count}, total_bytes={len(data)}, pos_after_header={pos}')
+    dbg(f'columns({len(columns)}): ' + ', '.join(f'{c["name"]}:{c["type"]}' for c in columns))
     rows = []
 
-    for _ in range(data_count):
+    for row_idx in range(data_count):
         if pos >= len(data): break
         row          = []
         str_compress = None
@@ -143,7 +168,8 @@ def parse_bytes(raw, schema):
                     is_decoded = int(val)
                 row.append(val)
             rows.append(row)
-        except Exception:
+        except Exception as e:
+            dbg(f'row[{row_idx}] 解析失敗 pos={pos} col[{ci}]={col}: {e}')
             break
 
     return rows
@@ -242,7 +268,7 @@ MAX_ROWS       = 5   # 每類最多顯示幾筆
 INLINE_THRESH  = 3   # 異動欄位數 ≤ 此值時用單行，超過則多行
 
 def format_diff(rel_path, key, schema, rows_a, rows_b):
-    col_names = [c['name'] for c in schema['columns']]
+    col_names = [c['name'] for c in expand_columns(schema['columns'])]
     key_cols  = schema.get('keyColumns', [0])
     added, removed, changed = diff_rows(rows_a, rows_b, key_cols)
     total = len(added) + len(removed) + len(changed)
