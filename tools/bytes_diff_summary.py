@@ -64,13 +64,15 @@ TYPE_ALIAS = {
     'boolean':'bool','str':'string',
 }
 
-# ── Debug 開關 ────────────────────────────────────────
+# ── Debug log（永遠開啟，寫入 bytes_debug.log）─────────
 import os as _dbg_os
-DEBUG = _dbg_os.environ.get('BYTES_DEBUG', '0') == '1'
+_LOG_PATH = _dbg_os.path.join(_dbg_os.path.dirname(_dbg_os.path.abspath(__file__)), 'bytes_debug.log')
+_log_file = open(_LOG_PATH, 'w', encoding='utf-8')
 
 def dbg(*args):
-    if DEBUG:
-        print('[DEBUG]', *args, file=sys.stderr)
+    msg = ' '.join(str(a) for a in args)
+    _log_file.write(msg + '\n')
+    _log_file.flush()
 
 # ── reward 型別展開 ────────────────────────────────────
 def remap_key_cols(original_columns, key_cols):
@@ -247,9 +249,15 @@ def diff_rows(rows_a, rows_b, key_cols=None):
     map_a = group_with_idx(rows_a)
     map_b = group_with_idx(rows_b)
 
+    dbg(f'[diff_rows] key_cols={key_cols}')
+    dbg(f'[diff_rows] map_b keys={list(map_b.keys())[:10]}')
+    dbg(f'[diff_rows] map_a keys={list(map_a.keys())[:10]}')
+
     # 重複 key 集合（用於呼叫端決定是否顯示行號）
     dup_keys_b = {k for k, v in map_b.items() if len(v) > 1}
     dup_keys_a = {k for k, v in map_a.items() if len(v) > 1}
+    dbg(f'[diff_rows] dup_keys_b={dup_keys_b}')
+    dbg(f'[diff_rows] dup_keys_a={dup_keys_a}')
 
     added, removed, changed = [], [], []
 
@@ -292,7 +300,15 @@ INLINE_THRESH  = 3   # 異動欄位數 ≤ 此值時用單行，超過則多行
 def format_diff(rel_path, key, schema, rows_a, rows_b):
     original_cols = schema['columns']
     col_names = [c['name'] for c in expand_columns(original_cols)]
-    key_cols  = remap_key_cols(original_cols, schema.get('keyColumns', [0]))
+    raw_key_cols = schema.get('keyColumns', [0])
+    key_cols  = remap_key_cols(original_cols, raw_key_cols)
+    dbg(f'[format_diff] keyColumns原始={raw_key_cols} → 重映射後={key_cols}')
+    dbg(f'[format_diff] col_names(展開後)={col_names}')
+    if rows_b:
+        dbg(f'[format_diff] rows_b[0]={rows_b[0]}')
+        dbg(f'[format_diff] key值範例={[rows_b[0][i] for i in key_cols if i < len(rows_b[0])]}')
+    added, removed, changed, dup_keys = diff_rows(rows_a, rows_b, key_cols)
+    dbg(f'[format_diff] dup_keys={dup_keys}')
     added, removed, changed, dup_keys = diff_rows(rows_a, rows_b, key_cols)
     total = len(added) + len(removed) + len(changed)
 
