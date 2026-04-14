@@ -73,6 +73,15 @@ def dbg(*args):
         print('[DEBUG]', *args, file=sys.stderr)
 
 # ── reward 型別展開 ────────────────────────────────────
+def remap_key_cols(original_columns, key_cols):
+    """將原始 schema 的 keyColumns 索引換算成 expand_columns 後的索引"""
+    index_map = {}
+    new_idx = 0
+    for old_idx, col in enumerate(original_columns):
+        index_map[old_idx] = new_idx
+        new_idx += 3 if col['type'].lower() == 'reward' else 1
+    return [index_map[k] for k in key_cols if k in index_map]
+
 def expand_columns(columns):
     """將 type='reward' 的欄位展開為 3 欄：uint8 + int64 + int64"""
     result = []
@@ -281,8 +290,9 @@ MAX_ROWS       = 5   # 每類最多顯示幾筆
 INLINE_THRESH  = 3   # 異動欄位數 ≤ 此值時用單行，超過則多行
 
 def format_diff(rel_path, key, schema, rows_a, rows_b):
-    col_names = [c['name'] for c in expand_columns(schema['columns'])]
-    key_cols  = schema.get('keyColumns', [0])
+    original_cols = schema['columns']
+    col_names = [c['name'] for c in expand_columns(original_cols)]
+    key_cols  = remap_key_cols(original_cols, schema.get('keyColumns', [0]))
     added, removed, changed, dup_keys = diff_rows(rows_a, rows_b, key_cols)
     total = len(added) + len(removed) + len(changed)
 
