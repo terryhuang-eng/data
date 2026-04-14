@@ -228,18 +228,30 @@ def diff_rows(rows_a, rows_b, key_cols=None):
             return k
         return None
 
-    map_a = group(rows_a)
-    map_b = group(rows_b)
+    # group with 1-indexed row numbers
+    def group_with_idx(rows):
+        m = defaultdict(list)
+        for idx, r in enumerate(rows):
+            m[row_key(r)].append((idx + 1, r))
+        return m
+
+    map_a = group_with_idx(rows_a)
+    map_b = group_with_idx(rows_b)
+
+    # 重複 key 集合（用於呼叫端決定是否顯示行號）
+    dup_keys_b = {k for k, v in map_b.items() if len(v) > 1}
+    dup_keys_a = {k for k, v in map_a.items() if len(v) > 1}
+
     added, removed, changed = [], [], []
 
     all_keys = list(dict.fromkeys([row_key(r) for r in rows_b] + [row_key(r) for r in rows_a]))
 
     for k in all_keys:
-        a_list = map_a.get(k, [])
-        b_list = map_b.get(k, [])
-        for i, rb in enumerate(b_list):
-            if i < len(a_list):
-                ra = a_list[i]
+        a_entries = map_a.get(k, [])
+        b_entries = map_b.get(k, [])
+        for i, (row_num_b, rb) in enumerate(b_entries):
+            if i < len(a_entries):
+                row_num_a, ra = a_entries[i]
                 diff_cols = [j for j in range(min(len(ra), len(rb))) if str(ra[j]) != str(rb[j])]
                 if diff_cols:
                     ins = try_col_insert(ra, rb)
@@ -247,13 +259,14 @@ def diff_rows(rows_a, rows_b, key_cols=None):
                     if ins is None and dlt is None:
                         ins = try_col_shift(ra, rb, diff_cols)
                     col_op = ('insert', ins) if ins is not None else ('delete', dlt) if dlt is not None else None
-                    changed.append((ra, rb, diff_cols, col_op))
+                    changed.append((ra, rb, diff_cols, col_op, row_num_b))
             else:
-                added.append(rb)
-        for i in range(len(b_list), len(a_list)):
-            removed.append(a_list[i])
+                added.append((rb, row_num_b))
+        for i in range(len(b_entries), len(a_entries)):
+            row_num_a, ra = a_entries[i]
+            removed.append((ra, row_num_a))
 
-    return added, removed, changed
+    return added, removed, changed, dup_keys_b | dup_keys_a
 
 # ── 顏色（ANSI，Windows 10+ cmd 支援）────────────────
 import os as _os
@@ -270,7 +283,7 @@ INLINE_THRESH  = 3   # 異動欄位數 ≤ 此值時用單行，超過則多行
 def format_diff(rel_path, key, schema, rows_a, rows_b):
     col_names = [c['name'] for c in expand_columns(schema['columns'])]
     key_cols  = schema.get('keyColumns', [0])
-    added, removed, changed = diff_rows(rows_a, rows_b, key_cols)
+    added, removed, changed, dup_keys = diff_rows(rows_a, rows_b, key_cols)
     total = len(added) + len(removed) + len(changed)
 
     fname = os.path.basename(rel_path)
@@ -282,16 +295,22 @@ def format_diff(rel_path, key, schema, rows_a, rows_b):
 
     lines.append(f'#   修改 {len(changed)} 筆　新增 {len(added)} 筆　刪除 {len(removed)} 筆')
 
-    def fmt_key(row):
+    def row_key_str(row):
+        return '\t'.join(str(row[i]) for i in key_cols if i < len(row))
+
+    def fmt_key(row, row_num=None):
         parts = []
         for i in key_cols:
             if i < len(col_names) and i < len(row):
                 parts.append(f'{col_names[i]}={row[i]}')
-        return '  '.join(parts)
+        s = '  '.join(parts)
+        if row_num is not None and row_key_str(row) in dup_keys:
+            s += f'（第{row_num}筆）'
+        return s
 
     # 修改列
-    for ra, rb, diff_cols, col_op in changed:
-        k_str = fmt_key(ra)
+    for ra, rb, diff_cols, col_op, row_num_b in changed:
+        k_str = fmt_key(ra, row_num_b)
         if col_op:
             kind, k = col_op
             col_name = col_names[k] if k < len(col_names) else f'col_{k}'
@@ -314,16 +333,17 @@ def format_diff(rel_path, key, schema, rows_a, rows_b):
                 lines.append(f'#       …還有 {len(diff_cols) - 4} 欄')
 
     # 新增列（綠色，列出所有欄位）
-    for r in added:
+    for r, row_num_b in added:
         parts = []
         for ci, cn in enumerate(col_names):
             if ci >= len(r): break
             parts.append(f'{cn}={str(r[ci])}')
-        lines.append(GREEN + '#   + ' + '  '.join(parts) + RESET)
+        suffix = f'（第{row_num_b}筆）' if row_key_str(r) in dup_keys else ''
+        lines.append(GREEN + '#   + ' + '  '.join(parts) + suffix + RESET)
 
     # 刪除列（紅色，只顯示 key）
-    for r in removed:
-        lines.append(RED + f'#   - {fmt_key(r)}' + RESET)
+    for r, row_num_a in removed:
+        lines.append(RED + f'#   - {fmt_key(r, row_num_a)}' + RESET)
 
     return lines
 
