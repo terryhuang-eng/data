@@ -188,18 +188,16 @@ def diff_rows(rows_a, rows_b, key_cols=None):
 
     def try_col_shift(ra, rb, diff_cols):
         """
-        同長度 row（bat 模式）：若 diff_cols 為連續尾段 [k..N-1]，
-        且 ra[k:N-1] == rb[k+1:N]（位移吻合），判定為欄位插入於 k。
+        同長度 row（bat 模式）：從第一個差異欄 k 開始，
+        若 ra[k:N-1] == rb[k+1:N]（位移吻合），判定為欄位插入於 k。
+        不要求 diff_cols 連續到 N-1，避免末欄偶然相同時誤判。
         """
         if not diff_cols or len(ra) != len(rb):
             return None
         N = len(ra)
         k = diff_cols[0]
-        if diff_cols != list(range(k, N)):
-            return None
         ra_s = [str(x) for x in ra]
         rb_s = [str(x) for x in rb]
-        # ra[k:N-1] 是舊檔位移後的真實值，應等於 rb[k+1:N]
         if N > k + 1 and ra_s[k:N-1] == rb_s[k+1:N]:
             return k
         return None
