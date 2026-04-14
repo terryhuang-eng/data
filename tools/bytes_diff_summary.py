@@ -150,12 +150,23 @@ def parse_bytes(raw, schema):
     }
 
     data_count = struct.unpack_from('<i', data, pos)[0]; pos += 4
-    dbg(f'data_count={data_count}, total_bytes={len(data)}, pos_after_header={pos}')
+    total_bytes = len(data)
+    data_bytes  = total_bytes - 4
+    bytes_per_row_expected = data_bytes // data_count if data_count else 0
+    bytes_per_row_schema   = sum(
+        {'bool':1,'byte':1,'short':2,'ushort':2,'int':4,'uint':4,
+         'long':8,'ulong':8,'single':4,'float':4,'double':8}.get(
+            TYPE_ALIAS.get(c['type'].lower(), c['type'].lower()), 0)
+        for c in columns
+    )
+    dbg(f'data_count={data_count}, total_bytes={total_bytes}, pos_after_header={pos}')
+    dbg(f'bytes/row 實際={bytes_per_row_expected}  schema計算={bytes_per_row_schema}  差異={bytes_per_row_expected - bytes_per_row_schema}')
     dbg(f'columns({len(columns)}): ' + ', '.join(f'{c["name"]}:{c["type"]}' for c in columns))
     rows = []
 
     for row_idx in range(data_count):
         if pos >= len(data): break
+        row_start    = pos
         row          = []
         str_compress = None
         is_decoded   = None
@@ -178,11 +189,13 @@ def parse_bytes(raw, schema):
                 if ci == is_decoded_idx:
                     is_decoded = int(val)
                 row.append(val)
+            dbg(f'row[{row_idx}] pos {row_start}→{pos} (consumed {pos-row_start}B) vals={row}')
             rows.append(row)
         except Exception as e:
             dbg(f'row[{row_idx}] 解析失敗 pos={pos} col[{ci}]={col}: {e}')
             break
 
+    dbg(f'解析結束 pos={pos} / total={total_bytes}  剩餘={total_bytes - pos}B')
     return rows
 
 # ── 比對 ──────────────────────────────────────────────
