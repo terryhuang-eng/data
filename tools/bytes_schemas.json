@@ -1,1478 +1,4 @@
 {
-  "ReconstructionStr": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "文字ID",
-        "type": "uint16"
-      },
-      {
-        "name": "組別",
-        "type": "uint8"
-      },
-      {
-        "name": "內容",
-        "type": "dstring"
-      }
-    ]
-  },
-  "ScheduleReward": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "活動ID",
-        "type": "uint16"
-      },
-      {
-        "name": "排序",
-        "type": "uint16"
-      },
-      {
-        "name": "獎勵類型",
-        "type": "reward"
-      }
-    ]
-  },
-  "schedule_reward": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "活動ID",
-        "type": "uint16"
-      },
-      {
-        "name": "活動類型",
-        "type": "uint16"
-      }
-    ]
-  },
-  "schedule_reward_list": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "活動ID",
-        "type": "uint16"
-      },
-      {
-        "name": "排序",
-        "type": "uint16"
-      },
-      {
-        "name": "獎勵類型",
-        "type": "reward"
-      }
-    ]
-  },
-  "ScoreStr": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "ID",
-        "type": "uint16"
-      },
-      {
-        "name": "分數名稱",
-        "type": "dstring"
-      },
-      {
-        "name": "分數內文",
-        "type": "dstring"
-      }
-    ]
-  },
-  "SeasonReportStr": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "文字id",
-        "type": "uint16"
-      },
-      {
-        "name": "內容",
-        "type": "dstring"
-      }
-    ]
-  },
-  "SeasonStr": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "文字ID",
-        "type": "uint32"
-      },
-      {
-        "name": "內容",
-        "type": "dstring"
-      }
-    ]
-  },
-  "SeasonalStore": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "商城群組",
-        "type": "uint8"
-      },
-      {
-        "name": "tokenID",
-        "type": "dstring"
-      },
-      {
-        "name": "發放勳章",
-        "type": "uint16"
-      }
-    ]
-  },
-  "seasonal_store_goods_group": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "商城群組",
-        "type": "uint8"
-      },
-      {
-        "name": "商品ID",
-        "type": "uint32"
-      },
-      {
-        "name": "商品順序",
-        "type": "uint8"
-      },
-      {
-        "name": "通用獎勵",
-        "type": "reward"
-      }
-    ]
-  },
-  "SeasonFunctionSwitch": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "功能id",
-        "type": "uint32"
-      },
-      {
-        "name": "加總計算",
-        "type": "uint32"
-      }
-    ]
-  },
-  "ServerEvent": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "活動ID",
-        "type": "uint16"
-      },
-      {
-        "name": "排序",
-        "type": "uint16"
-      },
-      {
-        "name": "圖號",
-        "type": "uint16"
-      },
-      {
-        "name": "背景圖號",
-        "type": "int16"
-      },
-      {
-        "name": "顯示獎勵",
-        "type": "uint32"
-      },
-      {
-        "name": "活動類型",
-        "type": "uint8"
-      },
-      {
-        "name": "轉蛋ID",
-        "type": "uint16"
-      },
-      {
-        "name": "觸發類型",
-        "type": "uint16"
-      },
-      {
-        "name": "參數1",
-        "type": "uint32"
-      },
-      {
-        "name": "參數2",
-        "type": "uint32"
-      },
-      {
-        "name": "參數3",
-        "type": "uint32"
-      },
-      {
-        "name": "col_16",
-        "type": "uint8"
-      }
-    ]
-  },
-  "SkillGuildStr": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "方針&號令ID",
-        "type": "uint16"
-      },
-      {
-        "name": "名稱",
-        "type": "dstring"
-      },
-      {
-        "name": "效果",
-        "type": "dstring"
-      }
-    ]
-  },
-  "SkillStr": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "技能ID",
-        "type": "uint32"
-      },
-      {
-        "name": "技能名稱",
-        "type": "dstring"
-      },
-      {
-        "name": "技能描述",
-        "type": "dstring"
-      },
-      {
-        "name": "Lv4效果",
-        "type": "dstring"
-      },
-      {
-        "name": "Lv7效果",
-        "type": "dstring"
-      }
-    ]
-  },
-  "SkillEffect": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "大分類",
-        "type": "uint16"
-      },
-      {
-        "name": "小分類",
-        "type": "uint16"
-      },
-      {
-        "name": "效果編號ID",
-        "type": "uint32"
-      },
-      {
-        "name": "效果規則\r\nX",
-        "type": "uint16"
-      },
-      {
-        "name": "疊加規則\r\nY",
-        "type": "uint16"
-      },
-      {
-        "name": "作用階段\r\nZ",
-        "type": "uint16"
-      },
-      {
-        "name": "作用階段變化\r\nW",
-        "type": "uint16"
-      },
-      {
-        "name": "參數類型\r\nA",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nB",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nC",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nD",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nE",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nF",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nG",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nH",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nI",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nJ",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nK",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nL",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nU",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nV",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nW",
-        "type": "uint32"
-      },
-      {
-        "name": "參數類型\r\nX",
-        "type": "uint32"
-      }
-    ]
-  },
-  "SkillGov": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "技能ID",
-        "type": "uint16"
-      },
-      {
-        "name": "技能\r\n圖示",
-        "type": "uint16"
-      },
-      {
-        "name": "效果\r\n編號ID",
-        "type": "uint16"
-      },
-      {
-        "name": "影響值\r\nX",
-        "type": "uint8"
-      },
-      {
-        "name": "影響值\r\nY",
-        "type": "uint8"
-      },
-      {
-        "name": "影響值\r\nZ",
-        "type": "uint8"
-      },
-      {
-        "name": "技能參數\r\nA",
-        "type": "double"
-      },
-      {
-        "name": "技能參數\r\nB",
-        "type": "double"
-      },
-      {
-        "name": "技能參數\r\nC",
-        "type": "double"
-      },
-      {
-        "name": "技能參數\r\nD",
-        "type": "double"
-      }
-    ]
-  },
-  "SkillGuild": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "技能ID",
-        "type": "uint16"
-      },
-      {
-        "name": "技能\r\nicon",
-        "type": "uint16"
-      },
-      {
-        "name": "解鎖條件",
-        "type": "uint32"
-      },
-      {
-        "name": "解鎖條件參數1",
-        "type": "uint32"
-      },
-      {
-        "name": "解鎖條件參數2",
-        "type": "uint32"
-      },
-      {
-        "name": "分類",
-        "type": "uint16"
-      },
-      {
-        "name": "分類參數1",
-        "type": "int64"
-      },
-      {
-        "name": "分類參數2",
-        "type": "int64"
-      },
-      {
-        "name": "分類參數3",
-        "type": "int64"
-      },
-      {
-        "name": "作用目標&效果ID",
-        "type": "uint16"
-      },
-      {
-        "name": "效果參數1",
-        "type": "double"
-      },
-      {
-        "name": "效果參數2",
-        "type": "double"
-      },
-      {
-        "name": "效果參數3",
-        "type": "double"
-      },
-      {
-        "name": "效果參數4",
-        "type": "double"
-      }
-    ]
-  },
-  "Skill": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "技能\r\nID",
-        "type": "uint32"
-      },
-      {
-        "name": "技能\r\n圖示",
-        "type": "uint16"
-      },
-      {
-        "name": "圖示底色",
-        "type": "uint8"
-      },
-      {
-        "name": "施放階段{O}",
-        "type": "uint8"
-      },
-      {
-        "name": "首次施放回合{P}",
-        "type": "uint8"
-      },
-      {
-        "name": "冷卻時間{Q}",
-        "type": "uint8"
-      },
-      {
-        "name": "總可使用次數{R}",
-        "type": "uint8"
-      },
-      {
-        "name": "每回合次數{S}",
-        "type": "uint8"
-      },
-      {
-        "name": "最後施放回合{T}",
-        "type": "uint8"
-      },
-      {
-        "name": "作用條件1",
-        "type": "uint16"
-      },
-      {
-        "name": "參數A",
-        "type": "uint16"
-      },
-      {
-        "name": "參數B",
-        "type": "uint16"
-      },
-      {
-        "name": "作用條件2",
-        "type": "uint16"
-      },
-      {
-        "name": "參數A",
-        "type": "uint16"
-      },
-      {
-        "name": "參數B",
-        "type": "uint16"
-      },
-      {
-        "name": "作為追加技時前置的技能ID",
-        "type": "uint32"
-      },
-      {
-        "name": "基礎發生機率{M}",
-        "type": "double"
-      },
-      {
-        "name": "每級提升機率{N}",
-        "type": "double"
-      },
-      {
-        "name": "作用目標",
-        "type": "uint16"
-      },
-      {
-        "name": "參數A",
-        "type": "uint16"
-      },
-      {
-        "name": "參數B",
-        "type": "uint16"
-      },
-      {
-        "name": "效果編號ID",
-        "type": "uint32"
-      },
-      {
-        "name": "效果規則X",
-        "type": "uint16"
-      },
-      {
-        "name": "疊加規則Y",
-        "type": "uint16"
-      },
-      {
-        "name": "作用階段Z",
-        "type": "uint16"
-      },
-      {
-        "name": "作用階段變化W",
-        "type": "uint16"
-      },
-      {
-        "name": "參數資料\r\nA",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nB",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nC",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nD",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nE",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nF",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nG",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nH",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nI",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nJ",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nK",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nL",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nU",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nV",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nW",
-        "type": "double"
-      },
-      {
-        "name": "參數資料\r\nX",
-        "type": "double"
-      },
-      {
-        "name": "是否\r\nCutIn",
-        "type": "uint8"
-      },
-      {
-        "name": "顯示技能類型",
-        "type": "uint8"
-      },
-      {
-        "name": "戰報計算技能傷害總和用",
-        "type": "uint32"
-      },
-      {
-        "name": "戰報計算技能發動次數用",
-        "type": "uint8"
-      }
-    ]
-  },
-  "SoldierStr": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "部隊ID",
-        "type": "uint16"
-      },
-      {
-        "name": "部隊名稱",
-        "type": "dstring"
-      },
-      {
-        "name": "部隊故事",
-        "type": "dstring"
-      }
-    ]
-  },
-  "SoldierSkillLvUp": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "兵種階級",
-        "type": "uint8"
-      },
-      {
-        "name": "當前等級",
-        "type": "uint8"
-      },
-      {
-        "name": "下一等級",
-        "type": "uint8"
-      },
-      {
-        "name": "升級金幣",
-        "type": "uint32"
-      }
-    ]
-  },
-  "Soldier": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "部隊ID",
-        "type": "uint16"
-      },
-      {
-        "name": "部隊圖號",
-        "type": "uint32"
-      },
-      {
-        "name": "所屬國家",
-        "type": "uint8"
-      },
-      {
-        "name": "生產建築",
-        "type": "uint16"
-      },
-      {
-        "name": "兵等",
-        "type": "uint8"
-      },
-      {
-        "name": "占用指揮",
-        "type": "uint8"
-      },
-      {
-        "name": "性別",
-        "type": "uint8"
-      },
-      {
-        "name": "射程",
-        "type": "uint8"
-      },
-      {
-        "name": "武器類型",
-        "type": "uint8"
-      },
-      {
-        "name": "兵種類型",
-        "type": "uint8"
-      },
-      {
-        "name": "兵種定位",
-        "type": "uint8"
-      },
-      {
-        "name": "傷害值Min",
-        "type": "uint16"
-      },
-      {
-        "name": "傷害值Max",
-        "type": "uint16"
-      },
-      {
-        "name": "生命值",
-        "type": "uint16"
-      },
-      {
-        "name": "物理防禦值",
-        "type": "uint16"
-      },
-      {
-        "name": "魔法防禦值",
-        "type": "uint16"
-      },
-      {
-        "name": "速度值",
-        "type": "uint16"
-      },
-      {
-        "name": "攻城值",
-        "type": "uint32"
-      },
-      {
-        "name": "行軍速度",
-        "type": "uint16"
-      },
-      {
-        "name": "招募需時(1隻兵/秒)",
-        "type": "uint32"
-      },
-      {
-        "name": "木頭需求值(1隻兵)",
-        "type": "uint32"
-      },
-      {
-        "name": "鐵礦需求值(1隻兵)",
-        "type": "uint32"
-      },
-      {
-        "name": "糧草需求值(1隻兵)",
-        "type": "uint32"
-      },
-      {
-        "name": "金幣需求值(1隻兵)",
-        "type": "uint32"
-      },
-      {
-        "name": "普攻ID",
-        "type": "uint16"
-      },
-      {
-        "name": "技能1 ID",
-        "type": "uint16"
-      },
-      {
-        "name": "技能2 ID",
-        "type": "uint16"
-      },
-      {
-        "name": "技能3 ID",
-        "type": "uint16"
-      }
-    ]
-  },
-  "StepPaybagString": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "ID",
-        "type": "uint16"
-      },
-      {
-        "name": "名稱",
-        "type": "dstring"
-      }
-    ]
-  },
-  "StepmissionEventCashflow": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "ID",
-        "type": "uint16"
-      },
-      {
-        "name": "活動ID",
-        "type": "uint16"
-      },
-      {
-        "name": "階級",
-        "type": "dstring"
-      },
-      {
-        "name": "金流對應UI位置",
-        "type": "uint8"
-      },
-      {
-        "name": "折扣UI內文",
-        "type": "dstring"
-      }
-    ]
-  },
-  "StepMissionEvent": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "活動ID",
-        "type": "uint16"
-      },
-      {
-        "name": "第幾階",
-        "type": "uint8"
-      },
-      {
-        "name": "參數",
-        "type": "uint8"
-      },
-      {
-        "name": "任務編號",
-        "type": "uint32"
-      },
-      {
-        "name": "引導ID",
-        "type": "uint16"
-      }
-    ]
-  },
-  "stepmissionevent_reward": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "col_1",
-        "type": "uint16"
-      },
-      {
-        "name": "col_2",
-        "type": "uint16"
-      },
-      {
-        "name": "col_3",
-        "type": "uint8"
-      },
-      {
-        "name": "col_4",
-        "type": "uint8"
-      },
-      {
-        "name": "col_6",
-        "type": "reward"
-      }
-    ]
-  },
-  "StepPaybag": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "序號",
-        "type": "uint16"
-      },
-      {
-        "name": "金流群組ID",
-        "type": "dstring"
-      },
-      {
-        "name": "群組ID",
-        "type": "uint16"
-      },
-      {
-        "name": "獎勵種類1",
-        "type": "reward"
-      }
-    ]
-  },
-  "store": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "商城ID",
-        "type": "uint16"
-      },
-      {
-        "name": "賽季標籤",
-        "type": "uint32"
-      },
-      {
-        "name": "活動種類",
-        "type": "uint16"
-      },
-      {
-        "name": "活動ID",
-        "type": "uint16"
-      },
-      {
-        "name": "分頁類型",
-        "type": "uint16"
-      },
-      {
-        "name": "獎勵格式ID",
-        "type": "reward"
-      }
-    ]
-  },
-  "Subscription": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "序號",
-        "type": "uint8"
-      },
-      {
-        "name": "獎勵類型",
-        "type": "reward"
-      }
-    ]
-  },
-  "subscription_content": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "id",
-        "type": "uint8"
-      },
-      {
-        "name": "天",
-        "type": "uint8"
-      },
-      {
-        "name": "獎勵類型",
-        "type": "reward"
-      }
-    ]
-  },
-  "subscription": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "序號",
-        "type": "uint8"
-      },
-      {
-        "name": "獎勵類型",
-        "type": "reward"
-      }
-    ]
-  },
-  "TalentTree": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "技能樹\r\nID",
-        "type": "uint32"
-      },
-      {
-        "name": "核心1",
-        "type": "uint32"
-      },
-      {
-        "name": "核心1LV4",
-        "type": "uint32"
-      },
-      {
-        "name": "核心1LV7",
-        "type": "uint32"
-      },
-      {
-        "name": "核心2",
-        "type": "uint32"
-      },
-      {
-        "name": "核心2LV4",
-        "type": "uint32"
-      },
-      {
-        "name": "核心2LV7",
-        "type": "uint32"
-      },
-      {
-        "name": "核心3",
-        "type": "uint32"
-      },
-      {
-        "name": "核心3LV4",
-        "type": "uint32"
-      },
-      {
-        "name": "核心3LV7",
-        "type": "uint32"
-      },
-      {
-        "name": "攻擊+",
-        "type": "uint32"
-      },
-      {
-        "name": "士氣+",
-        "type": "uint32"
-      },
-      {
-        "name": "統率+",
-        "type": "uint32"
-      },
-      {
-        "name": "速度+",
-        "type": "uint32"
-      },
-      {
-        "name": "行軍+",
-        "type": "uint32"
-      },
-      {
-        "name": "R2_1",
-        "type": "uint32"
-      },
-      {
-        "name": "R2_2",
-        "type": "uint32"
-      },
-      {
-        "name": "R2_3",
-        "type": "uint32"
-      },
-      {
-        "name": "R2_4",
-        "type": "uint32"
-      }
-    ]
-  },
-  "tech_tutorial_str_tc": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "教學章節",
-        "type": "uint16"
-      },
-      {
-        "name": "教學標題",
-        "type": "dstring"
-      },
-      {
-        "name": "教學內容",
-        "type": "dstring"
-      }
-    ]
-  },
-  "tech_tutorial": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "教學章節",
-        "type": "uint16"
-      },
-      {
-        "name": "圖片",
-        "type": "uint16"
-      },
-      {
-        "name": "影片ID",
-        "type": "uint16"
-      },
-      {
-        "name": "通用獎勵",
-        "type": "reward"
-      }
-    ]
-  },
-  "TextData": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "textid",
-        "type": "int32"
-      },
-      {
-        "name": "textstring",
-        "type": "dstring"
-      }
-    ]
-  },
-  "TransitionsCgStr": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "文字號",
-        "type": "uint32"
-      },
-      {
-        "name": "文字內容",
-        "type": "dstring"
-      }
-    ]
-  },
-  "TransitionsCg": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "圖號",
-        "type": "uint32"
-      },
-      {
-        "name": "文字號",
-        "type": "uint32"
-      },
-      {
-        "name": "排除R15版",
-        "type": "uint16"
-      }
-    ]
-  },
-  "TutorialStr": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "文字ID",
-        "type": "uint32"
-      },
-      {
-        "name": "幫助內文",
-        "type": "dstring"
-      }
-    ]
-  },
-  "TutorialStrR15": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "文字ID",
-        "type": "uint32"
-      },
-      {
-        "name": "幫助內文",
-        "type": "dstring"
-      }
-    ]
-  },
-  "Tutorial": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "主分類",
-        "type": "uint8"
-      },
-      {
-        "name": "子分類",
-        "type": "uint16"
-      }
-    ]
-  },
-  "tutorial_content": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "子分類",
-        "type": "uint16"
-      },
-      {
-        "name": "頁數",
-        "type": "uint8"
-      },
-      {
-        "name": "呈現形式",
-        "type": "uint8"
-      },
-      {
-        "name": "圖號ID",
-        "type": "dstring20"
-      },
-      {
-        "name": "文字ID",
-        "type": "uint32"
-      }
-    ]
-  },
-  "UILinkIndex": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "介面編號",
-        "type": "uint16"
-      },
-      {
-        "name": "引導變數(1)",
-        "type": "uint8"
-      },
-      {
-        "name": "引導變數(2)",
-        "type": "uint8"
-      },
-      {
-        "name": "引導變數(3)",
-        "type": "uint8"
-      },
-      {
-        "name": "引導變數(4)",
-        "type": "uint8"
-      }
-    ]
-  },
-  "wheel_probability": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "轉盤id",
-        "type": "uint16"
-      },
-      {
-        "name": "機率說明",
-        "type": "dstring"
-      }
-    ]
-  },
-  "wheel_step_rewards": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "序號",
-        "type": "uint32"
-      },
-      {
-        "name": "活動id",
-        "type": "uint16"
-      },
-      {
-        "name": "累積抽數",
-        "type": "uint32"
-      },
-      {
-        "name": "獎勵種類1",
-        "type": "reward"
-      }
-    ]
-  },
-  "wheel": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "類型",
-        "type": "uint8"
-      },
-      {
-        "name": "活動ID",
-        "type": "uint16"
-      },
-      {
-        "name": "轉盤類型",
-        "type": "int8"
-      },
-      {
-        "name": "step開關",
-        "type": "int8"
-      },
-      {
-        "name": "角色ID",
-        "type": "int32"
-      },
-      {
-        "name": "保底抽數30",
-        "type": "int8"
-      },
-      {
-        "name": "可換代幣",
-        "type": "int16"
-      },
-      {
-        "name": "價格（源晶）",
-        "type": "uint16"
-      },
-      {
-        "name": "代幣id（道具表）",
-        "type": "uint16"
-      },
-      {
-        "name": "重置種類",
-        "type": "int8"
-      },
-      {
-        "name": "重置次數",
-        "type": "int8"
-      },
-      {
-        "name": "盤面數",
-        "type": "int8"
-      }
-    ]
-  },
-  "wheel_awards": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "轉盤ID",
-        "type": "int32"
-      },
-      {
-        "name": "第幾盤",
-        "type": "int8"
-      },
-      {
-        "name": "獎勵位置",
-        "type": "int32"
-      },
-      {
-        "name": "類型",
-        "type": "int8"
-      },
-      {
-        "name": "獎勵序號",
-        "type": "int16"
-      },
-      {
-        "name": "通用獎勵",
-        "type": "reward"
-      }
-    ]
-  },
-  "WorldBonus": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "進程",
-        "type": "uint8"
-      },
-      {
-        "name": "顯示旗標",
-        "type": "uint8"
-      },
-      {
-        "name": "效果編號",
-        "type": "uint16"
-      },
-      {
-        "name": "效果值\r\n(下一章生效)",
-        "type": "double"
-      }
-    ]
-  },
-  "WorldQuest": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "任務編號",
-        "type": "uint32"
-      },
-      {
-        "name": "排序",
-        "type": "int8"
-      },
-      {
-        "name": "章節底圖",
-        "type": "int8"
-      },
-      {
-        "name": "鎖定時間",
-        "type": "int8"
-      },
-      {
-        "name": "秒",
-        "type": "int32"
-      }
-    ]
-  },
-  "world_personal_quest": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "任務編號",
-        "type": "uint32"
-      },
-      {
-        "name": "群組",
-        "type": "int8"
-      }
-    ]
-  },
-  "medal_data": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "勳章編號",
-        "type": "int16"
-      },
-      {
-        "name": "達成條件一",
-        "type": "uint32"
-      },
-      {
-        "name": "參數1",
-        "type": "uint32"
-      },
-      {
-        "name": "達成條件二",
-        "type": "uint32"
-      },
-      {
-        "name": "參數1",
-        "type": "uint32"
-      },
-      {
-        "name": "達成條件三",
-        "type": "uint32"
-      },
-      {
-        "name": "參數1",
-        "type": "uint32"
-      },
-      {
-        "name": "達成條件四",
-        "type": "uint32"
-      },
-      {
-        "name": "參數1",
-        "type": "uint32"
-      },
-      {
-        "name": "通用獎勵一（對應token）",
-        "type": "reward"
-      }
-    ]
-  },
-  "mid_season_settlement": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "結算名次",
-        "type": "uint8"
-      },
-      {
-        "name": "通用獎勵",
-        "type": "reward"
-      }
-    ]
-  },
-  "title": {
-    "isXor": false,
-    "columns": [
-      {
-        "name": "語音檔名",
-        "type": "int32"
-      }
-    ]
-  },
   "AccumulateCost": {
     "isXor": false,
     "columns": [
@@ -1515,6 +41,22 @@
       },
       {
         "name": "獎勵種類1",
+        "type": "reward"
+      },
+      {
+        "name": "獎勵種類2",
+        "type": "reward"
+      },
+      {
+        "name": "獎勵種類3",
+        "type": "reward"
+      },
+      {
+        "name": "獎勵種類4",
+        "type": "reward"
+      },
+      {
+        "name": "獎勵種類5",
         "type": "reward"
       }
     ]
@@ -1790,6 +332,27 @@
       {
         "name": "牌位群組",
         "type": "uint16"
+      }
+    ]
+  },
+  "ArenaSkillGroup": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "ID",
+        "type": "uint16"
+      },
+      {
+        "name": "技能類型",
+        "type": "uint8"
+      },
+      {
+        "name": "技能ID",
+        "type": "uint16"
+      },
+      {
+        "name": "技能等級",
+        "type": "uint8"
       }
     ]
   },
@@ -2190,6 +753,10 @@
       {
         "name": "第幾階",
         "type": "int8"
+      },
+      {
+        "name": "通用獎勵",
+        "type": "reward"
       },
       {
         "name": "通用獎勵",
@@ -2621,6 +1188,14 @@
       {
         "name": "獎勵種類1",
         "type": "reward"
+      },
+      {
+        "name": "獎勵種類2",
+        "type": "reward"
+      },
+      {
+        "name": "獎勵種類",
+        "type": "reward"
       }
     ]
   },
@@ -3012,6 +1587,14 @@
       {
         "name": "獎勵種類1",
         "type": "reward"
+      },
+      {
+        "name": "獎勵種類2",
+        "type": "reward"
+      },
+      {
+        "name": "獎勵種類3",
+        "type": "reward"
       }
     ]
   },
@@ -3105,6 +1688,10 @@
       {
         "name": "參數一",
         "type": "reward"
+      },
+      {
+        "name": "通用文字id",
+        "type": "uint32"
       }
     ]
   },
@@ -4630,6 +3217,10 @@
       {
         "name": "通用獎勵",
         "type": "reward"
+      },
+      {
+        "name": "通用獎勵",
+        "type": "reward"
       }
     ]
   },
@@ -4806,6 +3397,14 @@
       {
         "name": "獎勵種類",
         "type": "reward"
+      },
+      {
+        "name": "獎勵種類3",
+        "type": "reward"
+      },
+      {
+        "name": "原價",
+        "type": "int64"
       }
     ]
   },
@@ -5257,6 +3856,14 @@
       {
         "name": "通用獎勵",
         "type": "reward"
+      },
+      {
+        "name": "機率",
+        "type": "uint32"
+      },
+      {
+        "name": "刷新機率",
+        "type": "uint32"
       }
     ]
   },
@@ -5368,6 +3975,18 @@
       {
         "name": "週期",
         "type": "uint8"
+      },
+      {
+        "name": "通",
+        "type": "reward"
+      },
+      {
+        "name": "通",
+        "type": "reward"
+      },
+      {
+        "name": "通",
+        "type": "reward"
       },
       {
         "name": "通",
@@ -5669,6 +4288,1592 @@
       {
         "name": "通用獎勵",
         "type": "reward"
+      }
+    ]
+  },
+  "ReconstructionStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "文字ID",
+        "type": "uint16"
+      },
+      {
+        "name": "組別",
+        "type": "uint8"
+      },
+      {
+        "name": "內容",
+        "type": "dstring"
+      }
+    ]
+  },
+  "ScheduleReward": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "活動ID",
+        "type": "uint16"
+      },
+      {
+        "name": "排序",
+        "type": "uint16"
+      },
+      {
+        "name": "獎勵類型",
+        "type": "reward"
+      }
+    ]
+  },
+  "schedule_reward": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "活動ID",
+        "type": "uint16"
+      },
+      {
+        "name": "活動類型",
+        "type": "uint16"
+      }
+    ]
+  },
+  "schedule_reward_list": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "活動ID",
+        "type": "uint16"
+      },
+      {
+        "name": "排序",
+        "type": "uint16"
+      },
+      {
+        "name": "獎勵類型",
+        "type": "reward"
+      }
+    ]
+  },
+  "ScoreStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "ID",
+        "type": "uint16"
+      },
+      {
+        "name": "分數名稱",
+        "type": "dstring"
+      },
+      {
+        "name": "分數內文",
+        "type": "dstring"
+      }
+    ]
+  },
+  "SeasonReportStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "文字id",
+        "type": "uint16"
+      },
+      {
+        "name": "內容",
+        "type": "dstring"
+      }
+    ]
+  },
+  "SeasonStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "文字ID",
+        "type": "uint32"
+      },
+      {
+        "name": "內容",
+        "type": "dstring"
+      }
+    ]
+  },
+  "SeasonalStore": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "商城群組",
+        "type": "uint8"
+      },
+      {
+        "name": "tokenID",
+        "type": "dstring"
+      },
+      {
+        "name": "發放勳章",
+        "type": "uint16"
+      }
+    ]
+  },
+  "seasonal_store_goods_group": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "商城群組",
+        "type": "uint8"
+      },
+      {
+        "name": "商品ID",
+        "type": "uint32"
+      },
+      {
+        "name": "商品順序",
+        "type": "uint8"
+      },
+      {
+        "name": "通用獎勵",
+        "type": "reward"
+      },
+      {
+        "name": "購買限定",
+        "type": "dstring"
+      },
+      {
+        "name": "通用獎勵2",
+        "type": "reward"
+      },
+      {
+        "name": "購買上限",
+        "type": "uint8"
+      }
+    ]
+  },
+  "SeasonFunctionSwitch": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "功能id",
+        "type": "uint32"
+      },
+      {
+        "name": "加總計算",
+        "type": "uint32"
+      }
+    ]
+  },
+  "ServerEvent": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "活動ID",
+        "type": "uint16"
+      },
+      {
+        "name": "排序",
+        "type": "uint16"
+      },
+      {
+        "name": "圖號",
+        "type": "uint16"
+      },
+      {
+        "name": "背景圖號",
+        "type": "int16"
+      },
+      {
+        "name": "顯示獎勵",
+        "type": "uint32"
+      },
+      {
+        "name": "活動類型",
+        "type": "uint8"
+      },
+      {
+        "name": "轉蛋ID",
+        "type": "uint16"
+      },
+      {
+        "name": "觸發類型",
+        "type": "uint16"
+      },
+      {
+        "name": "參數1",
+        "type": "uint32"
+      },
+      {
+        "name": "參數2",
+        "type": "uint32"
+      },
+      {
+        "name": "參數3",
+        "type": "uint32"
+      },
+      {
+        "name": "col_16",
+        "type": "uint8"
+      }
+    ]
+  },
+  "SkillGuildStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "方針&號令ID",
+        "type": "uint16"
+      },
+      {
+        "name": "名稱",
+        "type": "dstring"
+      },
+      {
+        "name": "效果",
+        "type": "dstring"
+      }
+    ]
+  },
+  "SkillStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "技能ID",
+        "type": "uint32"
+      },
+      {
+        "name": "技能名稱",
+        "type": "dstring"
+      },
+      {
+        "name": "技能描述",
+        "type": "dstring"
+      },
+      {
+        "name": "Lv4效果",
+        "type": "dstring"
+      },
+      {
+        "name": "Lv7效果",
+        "type": "dstring"
+      }
+    ]
+  },
+  "SkillEffect": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "大分類",
+        "type": "uint16"
+      },
+      {
+        "name": "小分類",
+        "type": "uint16"
+      },
+      {
+        "name": "效果編號ID",
+        "type": "uint32"
+      },
+      {
+        "name": "效果規則\r\nX",
+        "type": "uint16"
+      },
+      {
+        "name": "疊加規則\r\nY",
+        "type": "uint16"
+      },
+      {
+        "name": "作用階段\r\nZ",
+        "type": "uint16"
+      },
+      {
+        "name": "作用階段變化\r\nW",
+        "type": "uint16"
+      },
+      {
+        "name": "參數類型\r\nA",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nB",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nC",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nD",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nE",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nF",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nG",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nH",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nI",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nJ",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nK",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nL",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nU",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nV",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nW",
+        "type": "uint32"
+      },
+      {
+        "name": "參數類型\r\nX",
+        "type": "uint32"
+      }
+    ]
+  },
+  "SkillGov": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "技能ID",
+        "type": "uint16"
+      },
+      {
+        "name": "技能\r\n圖示",
+        "type": "uint16"
+      },
+      {
+        "name": "效果\r\n編號ID",
+        "type": "uint16"
+      },
+      {
+        "name": "影響值\r\nX",
+        "type": "uint8"
+      },
+      {
+        "name": "影響值\r\nY",
+        "type": "uint8"
+      },
+      {
+        "name": "影響值\r\nZ",
+        "type": "uint8"
+      },
+      {
+        "name": "技能參數\r\nA",
+        "type": "double"
+      },
+      {
+        "name": "技能參數\r\nB",
+        "type": "double"
+      },
+      {
+        "name": "技能參數\r\nC",
+        "type": "double"
+      },
+      {
+        "name": "技能參數\r\nD",
+        "type": "double"
+      }
+    ]
+  },
+  "SkillGuild": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "技能ID",
+        "type": "uint16"
+      },
+      {
+        "name": "技能\r\nicon",
+        "type": "uint16"
+      },
+      {
+        "name": "解鎖條件",
+        "type": "uint32"
+      },
+      {
+        "name": "解鎖條件參數1",
+        "type": "uint32"
+      },
+      {
+        "name": "解鎖條件參數2",
+        "type": "uint32"
+      },
+      {
+        "name": "分類",
+        "type": "uint16"
+      },
+      {
+        "name": "分類參數1",
+        "type": "int64"
+      },
+      {
+        "name": "分類參數2",
+        "type": "int64"
+      },
+      {
+        "name": "分類參數3",
+        "type": "int64"
+      },
+      {
+        "name": "作用目標&效果ID",
+        "type": "uint16"
+      },
+      {
+        "name": "效果參數1",
+        "type": "double"
+      },
+      {
+        "name": "效果參數2",
+        "type": "double"
+      },
+      {
+        "name": "效果參數3",
+        "type": "double"
+      },
+      {
+        "name": "效果參數4",
+        "type": "double"
+      }
+    ]
+  },
+  "Skill": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "技能\r\nID",
+        "type": "uint32"
+      },
+      {
+        "name": "技能\r\n圖示",
+        "type": "uint16"
+      },
+      {
+        "name": "圖示底色",
+        "type": "uint8"
+      },
+      {
+        "name": "施放階段{O}",
+        "type": "uint8"
+      },
+      {
+        "name": "首次施放回合{P}",
+        "type": "uint8"
+      },
+      {
+        "name": "冷卻時間{Q}",
+        "type": "uint8"
+      },
+      {
+        "name": "總可使用次數{R}",
+        "type": "uint8"
+      },
+      {
+        "name": "每回合次數{S}",
+        "type": "uint8"
+      },
+      {
+        "name": "最後施放回合{T}",
+        "type": "uint8"
+      },
+      {
+        "name": "作用條件1",
+        "type": "uint16"
+      },
+      {
+        "name": "參數A",
+        "type": "uint16"
+      },
+      {
+        "name": "參數B",
+        "type": "uint16"
+      },
+      {
+        "name": "作用條件2",
+        "type": "uint16"
+      },
+      {
+        "name": "參數A",
+        "type": "uint16"
+      },
+      {
+        "name": "參數B",
+        "type": "uint16"
+      },
+      {
+        "name": "作為追加技時前置的技能ID",
+        "type": "uint32"
+      },
+      {
+        "name": "基礎發生機率{M}",
+        "type": "double"
+      },
+      {
+        "name": "每級提升機率{N}",
+        "type": "double"
+      },
+      {
+        "name": "作用目標",
+        "type": "uint16"
+      },
+      {
+        "name": "參數A",
+        "type": "uint16"
+      },
+      {
+        "name": "參數B",
+        "type": "uint16"
+      },
+      {
+        "name": "效果編號ID",
+        "type": "uint32"
+      },
+      {
+        "name": "效果規則X",
+        "type": "uint16"
+      },
+      {
+        "name": "疊加規則Y",
+        "type": "uint16"
+      },
+      {
+        "name": "作用階段Z",
+        "type": "uint16"
+      },
+      {
+        "name": "作用階段變化W",
+        "type": "uint16"
+      },
+      {
+        "name": "參數資料\r\nA",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nB",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nC",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nD",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nE",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nF",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nG",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nH",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nI",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nJ",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nK",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nL",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nU",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nV",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nW",
+        "type": "double"
+      },
+      {
+        "name": "參數資料\r\nX",
+        "type": "double"
+      },
+      {
+        "name": "是否\r\nCutIn",
+        "type": "uint8"
+      },
+      {
+        "name": "顯示技能類型",
+        "type": "uint8"
+      },
+      {
+        "name": "戰報計算技能傷害總和用",
+        "type": "uint32"
+      },
+      {
+        "name": "戰報計算技能發動次數用",
+        "type": "uint8"
+      }
+    ]
+  },
+  "SoldierStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "部隊ID",
+        "type": "uint16"
+      },
+      {
+        "name": "部隊名稱",
+        "type": "dstring"
+      },
+      {
+        "name": "部隊故事",
+        "type": "dstring"
+      }
+    ]
+  },
+  "SoldierSkillLvUp": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "兵種階級",
+        "type": "uint8"
+      },
+      {
+        "name": "當前等級",
+        "type": "uint8"
+      },
+      {
+        "name": "下一等級",
+        "type": "uint8"
+      },
+      {
+        "name": "升級金幣",
+        "type": "uint32"
+      }
+    ]
+  },
+  "Soldier": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "部隊ID",
+        "type": "uint16"
+      },
+      {
+        "name": "部隊圖號",
+        "type": "uint32"
+      },
+      {
+        "name": "所屬國家",
+        "type": "uint8"
+      },
+      {
+        "name": "生產建築",
+        "type": "uint16"
+      },
+      {
+        "name": "兵等",
+        "type": "uint8"
+      },
+      {
+        "name": "占用指揮",
+        "type": "uint8"
+      },
+      {
+        "name": "性別",
+        "type": "uint8"
+      },
+      {
+        "name": "射程",
+        "type": "uint8"
+      },
+      {
+        "name": "武器類型",
+        "type": "uint8"
+      },
+      {
+        "name": "兵種類型",
+        "type": "uint8"
+      },
+      {
+        "name": "兵種定位",
+        "type": "uint8"
+      },
+      {
+        "name": "傷害值Min",
+        "type": "uint16"
+      },
+      {
+        "name": "傷害值Max",
+        "type": "uint16"
+      },
+      {
+        "name": "生命值",
+        "type": "uint16"
+      },
+      {
+        "name": "物理防禦值",
+        "type": "uint16"
+      },
+      {
+        "name": "魔法防禦值",
+        "type": "uint16"
+      },
+      {
+        "name": "速度值",
+        "type": "uint16"
+      },
+      {
+        "name": "攻城值",
+        "type": "uint32"
+      },
+      {
+        "name": "行軍速度",
+        "type": "uint16"
+      },
+      {
+        "name": "招募需時(1隻兵/秒)",
+        "type": "uint32"
+      },
+      {
+        "name": "木頭需求值(1隻兵)",
+        "type": "uint32"
+      },
+      {
+        "name": "鐵礦需求值(1隻兵)",
+        "type": "uint32"
+      },
+      {
+        "name": "糧草需求值(1隻兵)",
+        "type": "uint32"
+      },
+      {
+        "name": "金幣需求值(1隻兵)",
+        "type": "uint32"
+      },
+      {
+        "name": "普攻ID",
+        "type": "uint16"
+      },
+      {
+        "name": "技能1 ID",
+        "type": "uint16"
+      },
+      {
+        "name": "技能2 ID",
+        "type": "uint16"
+      },
+      {
+        "name": "技能3 ID",
+        "type": "uint16"
+      }
+    ]
+  },
+  "StepPaybagString": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "ID",
+        "type": "uint16"
+      },
+      {
+        "name": "名稱",
+        "type": "dstring"
+      }
+    ]
+  },
+  "StepmissionEventCashflow": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "ID",
+        "type": "uint16"
+      },
+      {
+        "name": "活動ID",
+        "type": "uint16"
+      },
+      {
+        "name": "階級",
+        "type": "dstring"
+      },
+      {
+        "name": "金流對應UI位置",
+        "type": "uint8"
+      },
+      {
+        "name": "折扣UI內文",
+        "type": "dstring"
+      }
+    ]
+  },
+  "StepMissionEvent": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "活動ID",
+        "type": "uint16"
+      },
+      {
+        "name": "第幾階",
+        "type": "uint8"
+      },
+      {
+        "name": "參數",
+        "type": "uint8"
+      },
+      {
+        "name": "任務編號",
+        "type": "uint32"
+      },
+      {
+        "name": "引導ID",
+        "type": "uint16"
+      }
+    ]
+  },
+  "stepmissionevent_reward": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "col_1",
+        "type": "uint16"
+      },
+      {
+        "name": "col_2",
+        "type": "uint16"
+      },
+      {
+        "name": "col_3",
+        "type": "uint8"
+      },
+      {
+        "name": "col_4",
+        "type": "uint8"
+      },
+      {
+        "name": "col_6",
+        "type": "reward"
+      }
+    ]
+  },
+  "StepPaybag": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "序號",
+        "type": "uint16"
+      },
+      {
+        "name": "金流群組ID",
+        "type": "dstring"
+      },
+      {
+        "name": "群組ID",
+        "type": "uint16"
+      },
+      {
+        "name": "獎勵種類1",
+        "type": "reward"
+      },
+      {
+        "name": "活動開始",
+        "type": "datetime"
+      },
+      {
+        "name": "活動結束",
+        "type": "datetime"
+      }
+    ]
+  },
+  "store": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "商城ID",
+        "type": "uint16"
+      },
+      {
+        "name": "賽季標籤",
+        "type": "uint32"
+      },
+      {
+        "name": "活動種類",
+        "type": "uint16"
+      },
+      {
+        "name": "活動ID",
+        "type": "uint16"
+      },
+      {
+        "name": "分頁類型",
+        "type": "uint16"
+      },
+      {
+        "name": "獎勵格式ID",
+        "type": "reward"
+      },
+      {
+        "name": "獎勵格式ID",
+        "type": "reward"
+      },
+      {
+        "name": "上限",
+        "type": "uint8"
+      },
+      {
+        "name": "週期",
+        "type": "uint8"
+      },
+      {
+        "name": "上架時間",
+        "type": "uint32"
+      },
+      {
+        "name": "下架時間",
+        "type": "uint32"
+      }
+    ]
+  },
+  "Subscription": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "序號",
+        "type": "uint8"
+      },
+      {
+        "name": "獎勵類型",
+        "type": "reward"
+      },
+      {
+        "name": "續訂獎勵類型",
+        "type": "uint8"
+      },
+      {
+        "name": "續訂1",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂2",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂3",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂4",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂5",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂6",
+        "type": "uint16"
+      }
+    ]
+  },
+  "subscription_content": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "id",
+        "type": "uint8"
+      },
+      {
+        "name": "天",
+        "type": "uint8"
+      },
+      {
+        "name": "獎勵類型",
+        "type": "reward"
+      },
+      {
+        "name": "獎勵類型",
+        "type": "reward"
+      }
+    ]
+  },
+  "subscription": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "序號",
+        "type": "uint8"
+      },
+      {
+        "name": "獎勵類型",
+        "type": "reward"
+      },
+      {
+        "name": "續訂獎勵類型",
+        "type": "uint8"
+      },
+      {
+        "name": "續訂1",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂2",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂3",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂4",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂5",
+        "type": "uint16"
+      },
+      {
+        "name": "續訂6",
+        "type": "uint16"
+      }
+    ]
+  },
+  "TalentTree": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "技能樹\r\nID",
+        "type": "uint32"
+      },
+      {
+        "name": "核心1",
+        "type": "uint32"
+      },
+      {
+        "name": "核心1LV4",
+        "type": "uint32"
+      },
+      {
+        "name": "核心1LV7",
+        "type": "uint32"
+      },
+      {
+        "name": "核心2",
+        "type": "uint32"
+      },
+      {
+        "name": "核心2LV4",
+        "type": "uint32"
+      },
+      {
+        "name": "核心2LV7",
+        "type": "uint32"
+      },
+      {
+        "name": "核心3",
+        "type": "uint32"
+      },
+      {
+        "name": "核心3LV4",
+        "type": "uint32"
+      },
+      {
+        "name": "核心3LV7",
+        "type": "uint32"
+      },
+      {
+        "name": "攻擊+",
+        "type": "uint32"
+      },
+      {
+        "name": "士氣+",
+        "type": "uint32"
+      },
+      {
+        "name": "統率+",
+        "type": "uint32"
+      },
+      {
+        "name": "速度+",
+        "type": "uint32"
+      },
+      {
+        "name": "行軍+",
+        "type": "uint32"
+      },
+      {
+        "name": "R2_1",
+        "type": "uint32"
+      },
+      {
+        "name": "R2_2",
+        "type": "uint32"
+      },
+      {
+        "name": "R2_3",
+        "type": "uint32"
+      },
+      {
+        "name": "R2_4",
+        "type": "uint32"
+      }
+    ]
+  },
+  "tech_tutorial_str_tc": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "教學章節",
+        "type": "uint16"
+      },
+      {
+        "name": "教學標題",
+        "type": "dstring"
+      },
+      {
+        "name": "教學內容",
+        "type": "dstring"
+      }
+    ]
+  },
+  "tech_tutorial": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "教學章節",
+        "type": "uint16"
+      },
+      {
+        "name": "圖片",
+        "type": "uint16"
+      },
+      {
+        "name": "影片ID",
+        "type": "uint16"
+      },
+      {
+        "name": "通用獎勵",
+        "type": "reward"
+      }
+    ]
+  },
+  "TextData": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "textid",
+        "type": "int32"
+      },
+      {
+        "name": "textstring",
+        "type": "dstring"
+      }
+    ]
+  },
+  "TransitionsCgStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "文字號",
+        "type": "uint32"
+      },
+      {
+        "name": "文字內容",
+        "type": "dstring"
+      }
+    ]
+  },
+  "TransitionsCg": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "圖號",
+        "type": "uint32"
+      },
+      {
+        "name": "文字號",
+        "type": "uint32"
+      },
+      {
+        "name": "排除R15版",
+        "type": "uint16"
+      }
+    ]
+  },
+  "TutorialStr": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "文字ID",
+        "type": "uint32"
+      },
+      {
+        "name": "幫助內文",
+        "type": "dstring"
+      }
+    ]
+  },
+  "TutorialStrR15": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "文字ID",
+        "type": "uint32"
+      },
+      {
+        "name": "幫助內文",
+        "type": "dstring"
+      }
+    ]
+  },
+  "Tutorial": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "主分類",
+        "type": "uint8"
+      },
+      {
+        "name": "子分類",
+        "type": "uint16"
+      }
+    ]
+  },
+  "tutorial_content": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "子分類",
+        "type": "uint16"
+      },
+      {
+        "name": "頁數",
+        "type": "uint8"
+      },
+      {
+        "name": "呈現形式",
+        "type": "uint8"
+      },
+      {
+        "name": "圖號ID",
+        "type": "dstring20"
+      },
+      {
+        "name": "文字ID",
+        "type": "uint32"
+      }
+    ]
+  },
+  "UILinkIndex": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "介面編號",
+        "type": "uint16"
+      },
+      {
+        "name": "引導變數(1)",
+        "type": "uint8"
+      },
+      {
+        "name": "引導變數(2)",
+        "type": "uint8"
+      },
+      {
+        "name": "引導變數(3)",
+        "type": "uint8"
+      },
+      {
+        "name": "引導變數(4)",
+        "type": "uint8"
+      }
+    ]
+  },
+  "wheel_probability": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "轉盤id",
+        "type": "uint16"
+      },
+      {
+        "name": "機率說明",
+        "type": "dstring"
+      }
+    ]
+  },
+  "wheel_step_rewards": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "序號",
+        "type": "uint32"
+      },
+      {
+        "name": "活動id",
+        "type": "uint16"
+      },
+      {
+        "name": "累積抽數",
+        "type": "uint32"
+      },
+      {
+        "name": "獎勵種類1",
+        "type": "reward"
+      }
+    ]
+  },
+  "wheel": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "類型",
+        "type": "uint8"
+      },
+      {
+        "name": "活動ID",
+        "type": "uint16"
+      },
+      {
+        "name": "轉盤類型",
+        "type": "int8"
+      },
+      {
+        "name": "step開關",
+        "type": "int8"
+      },
+      {
+        "name": "角色ID",
+        "type": "int32"
+      },
+      {
+        "name": "保底抽數30",
+        "type": "int8"
+      },
+      {
+        "name": "可換代幣",
+        "type": "int16"
+      },
+      {
+        "name": "價格（源晶）",
+        "type": "uint16"
+      },
+      {
+        "name": "代幣id（道具表）",
+        "type": "uint16"
+      },
+      {
+        "name": "重置種類",
+        "type": "int8"
+      },
+      {
+        "name": "重置次數",
+        "type": "int8"
+      },
+      {
+        "name": "盤面數",
+        "type": "int8"
+      }
+    ]
+  },
+  "wheel_awards": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "轉盤ID",
+        "type": "int32"
+      },
+      {
+        "name": "第幾盤",
+        "type": "int8"
+      },
+      {
+        "name": "獎勵位置",
+        "type": "int32"
+      },
+      {
+        "name": "類型",
+        "type": "int8"
+      },
+      {
+        "name": "獎勵序號",
+        "type": "int16"
+      },
+      {
+        "name": "通用獎勵",
+        "type": "reward"
+      },
+      {
+        "name": "數量",
+        "type": "int8"
+      },
+      {
+        "name": "機率（萬）",
+        "type": "int32"
+      }
+    ]
+  },
+  "WorldBonus": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "進程",
+        "type": "uint8"
+      },
+      {
+        "name": "顯示旗標",
+        "type": "uint8"
+      },
+      {
+        "name": "效果編號",
+        "type": "uint16"
+      },
+      {
+        "name": "效果值\r\n(下一章生效)",
+        "type": "double"
+      }
+    ]
+  },
+  "WorldQuest": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "任務編號",
+        "type": "uint32"
+      },
+      {
+        "name": "排序",
+        "type": "int8"
+      },
+      {
+        "name": "章節底圖",
+        "type": "int8"
+      },
+      {
+        "name": "鎖定時間",
+        "type": "int8"
+      },
+      {
+        "name": "秒",
+        "type": "int32"
+      }
+    ]
+  },
+  "world_personal_quest": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "任務編號",
+        "type": "uint32"
+      },
+      {
+        "name": "群組",
+        "type": "int8"
+      }
+    ]
+  },
+  "medal_data": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "勳章編號",
+        "type": "int16"
+      },
+      {
+        "name": "達成條件一",
+        "type": "uint32"
+      },
+      {
+        "name": "參數1",
+        "type": "uint32"
+      },
+      {
+        "name": "達成條件二",
+        "type": "uint32"
+      },
+      {
+        "name": "參數1",
+        "type": "uint32"
+      },
+      {
+        "name": "達成條件三",
+        "type": "uint32"
+      },
+      {
+        "name": "參數1",
+        "type": "uint32"
+      },
+      {
+        "name": "達成條件四",
+        "type": "uint32"
+      },
+      {
+        "name": "參數1",
+        "type": "uint32"
+      },
+      {
+        "name": "通用獎勵一（對應token）",
+        "type": "reward"
+      },
+      {
+        "name": "通用獎勵二",
+        "type": "reward"
+      }
+    ]
+  },
+  "mid_season_settlement": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "結算名次",
+        "type": "uint8"
+      },
+      {
+        "name": "通用獎勵",
+        "type": "reward"
+      }
+    ]
+  },
+  "title": {
+    "isXor": false,
+    "columns": [
+      {
+        "name": "語音檔名",
+        "type": "int32"
       }
     ]
   }
