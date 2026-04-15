@@ -252,6 +252,45 @@ def diff_rows(rows_a, rows_b, key_cols=None):
             return k
         return None
 
+    def rows_eq(ra, rb):
+        return len(ra) == len(rb) and all(str(a) == str(b) for a, b in zip(ra, rb))
+
+    def lcs_match(a_entries, b_entries):
+        """LCS 配對：完全相同的 row 視為無異動，其餘為新增/刪除"""
+        ra_list = [r for _, r in a_entries]
+        rb_list = [r for _, r in b_entries]
+        n, m = len(ra_list), len(rb_list)
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(n - 1, -1, -1):
+            for j in range(m - 1, -1, -1):
+                if rows_eq(ra_list[i], rb_list[j]):
+                    dp[i][j] = dp[i+1][j+1] + 1
+                else:
+                    dp[i][j] = max(dp[i+1][j], dp[i][j+1])
+        pairs, i, j = [], 0, 0
+        while i < n and j < m:
+            if rows_eq(ra_list[i], rb_list[j]):
+                pairs.append((i, j))
+                i += 1; j += 1
+            elif dp[i+1][j] >= dp[i][j+1]:
+                i += 1
+            else:
+                j += 1
+        matched_a = {ia for ia, _ in pairs}
+        matched_b = {ib for _, ib in pairs}
+        return pairs, [j for j in range(m) if j not in matched_b], [i for i in range(n) if i not in matched_a]
+
+    def compare_pair(ra, rb, row_num_b, changed):
+        diff_cols = [j for j in range(min(len(ra), len(rb))) if str(ra[j]) != str(rb[j])]
+        if not diff_cols:
+            return
+        ins = try_col_insert(ra, rb)
+        dlt = try_col_delete(ra, rb)
+        if ins is None and dlt is None:
+            ins = try_col_shift(ra, rb, diff_cols)
+        col_op = ('insert', ins) if ins is not None else ('delete', dlt) if dlt is not None else None
+        changed.append((ra, rb, diff_cols, col_op, row_num_b))
+
     # group with 1-indexed row numbers
     def group_with_idx(rows):
         m = defaultdict(list)
@@ -279,22 +318,27 @@ def diff_rows(rows_a, rows_b, key_cols=None):
     for k in all_keys:
         a_entries = map_a.get(k, [])
         b_entries = map_b.get(k, [])
-        for i, (row_num_b, rb) in enumerate(b_entries):
-            if i < len(a_entries):
-                row_num_a, ra = a_entries[i]
-                diff_cols = [j for j in range(min(len(ra), len(rb))) if str(ra[j]) != str(rb[j])]
-                if diff_cols:
-                    ins = try_col_insert(ra, rb)
-                    dlt = try_col_delete(ra, rb)
-                    if ins is None and dlt is None:
-                        ins = try_col_shift(ra, rb, diff_cols)
-                    col_op = ('insert', ins) if ins is not None else ('delete', dlt) if dlt is not None else None
-                    changed.append((ra, rb, diff_cols, col_op, row_num_b))
-            else:
+
+        if len(a_entries) == 1 and len(b_entries) == 1:
+            # 1:1：直接比對，顯示欄位異動
+            row_num_a, ra = a_entries[0]
+            row_num_b, rb = b_entries[0]
+            compare_pair(ra, rb, row_num_b, changed)
+        elif len(a_entries) == 0:
+            for row_num_b, rb in b_entries:
                 added.append((rb, row_num_b))
-        for i in range(len(b_entries), len(a_entries)):
-            row_num_a, ra = a_entries[i]
-            removed.append((ra, row_num_a))
+        elif len(b_entries) == 0:
+            for row_num_a, ra in a_entries:
+                removed.append((ra, row_num_a))
+        else:
+            # N:M（key 重複）→ LCS，完全相同才配對，其餘視為新增/刪除
+            pairs, added_b, removed_a = lcs_match(a_entries, b_entries)
+            for ai, bi in pairs:
+                compare_pair(a_entries[ai][1], b_entries[bi][1], b_entries[bi][0], changed)
+            for bi in added_b:
+                added.append((b_entries[bi][1], b_entries[bi][0]))
+            for ai in removed_a:
+                removed.append((a_entries[ai][1], a_entries[ai][0]))
 
     return added, removed, changed, dup_keys_b | dup_keys_a
 
